@@ -1,0 +1,46 @@
+# Memory-tier hardware parameters -- mirrors tiermoe/specs/tiers.py.
+# Edit this file to override defaults at runtime without touching code;
+# tiermoe.specs.tiers.TIER_SPECS is the source of truth the code actually
+# imports (this file is a human-editable, documented mirror consumed by the
+# CLI's --tiers-config flag, not yet wired to override the Python defaults
+# automatically -- see README.md's "Configuration" section).
+tiers:
+  hbm3:
+    label: "HBM3 (H100 SXM)"
+    capacity_gb: [24, 96]
+    bw_gbps: 3350.0
+    added_latency_ns: 0.0
+    source: "NVIDIA H100 datasheet"
+  ddr5_local:
+    label: "Local DDR5 (8-channel)"
+    capacity_gb: [512, 512]
+    bw_gbps: 307.0
+    added_latency_ns: 100.0
+    source: "JEDEC DDR5 spec / vendor"
+  cxl2_x8:
+    label: "CXL 2.0 x8 (Leo-class)"
+    capacity_gb: [512, 2048]
+    bw_gbps: 32.0
+    added_latency_ns: 210.0
+    source: "Sun et al. ISCA 2023; Astera Labs Leo product brief (170-250ns range, midpoint used)"
+  cxl2_x16:
+    label: "CXL 2.0 x16 / CXL 3.x x8"
+    capacity_gb: [512, 2048]
+    bw_gbps: 64.0
+    added_latency_ns: 210.0
+    source: "Sun et al. ISCA 2023, bandwidth scaled with lane count"
+  cxl3_multilink:
+    label: "CXL 3.x multi-link"
+    capacity_gb: [1024, 4096]
+    bw_gbps: 128.0
+    added_latency_ns: 210.0
+    source: "CXL Consortium CXL 3.x specification (projected aggregate bandwidth)"
+  pcie4_x16:
+    label: "PCIe 4.0 x16 (GPU link)"
+    capacity_gb: [0, 0]
+    bw_gbps: 25.0
+    added_latency_ns: 1000.0
+    source: "FloE (arXiv:2505.05950); used as the measured-physical-layer CXL analogue"
+
+link_bw_grid_gbps: [16, 32, 64, 128]
+cxl_latency_sensitivity_grid_ns: [150, 250, 400]

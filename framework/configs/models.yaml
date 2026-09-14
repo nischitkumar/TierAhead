@@ -1,0 +1,48 @@
+# Model architecture constants -- mirrors tiermoe/specs/models.py (the code
+# is the source of truth; this file documents the same numbers for anyone
+# reviewing the framework's assumptions without reading Python).
+models:
+  olmoe:
+    hf_id: "allenai/OLMoE-1B-7B-0924"
+    n_layers: 16
+    n_experts: 64
+    k: 8
+    hidden_size: 2048
+    expert_intermediate_size: 1024
+    gated: false
+    traced: true          # real committed traces ship under results/olmoe/b1/
+  mixtral:
+    hf_id: "mistralai/Mixtral-8x7B-Instruct-v0.1"
+    n_layers: 32
+    n_experts: 8
+    k: 2
+    hidden_size: 4096
+    expert_intermediate_size: 14336
+    gated: true            # requires `hf auth login` + license acceptance
+    traced: true
+  deepseek_moe_16b:
+    hf_id: "deepseek-ai/deepseek-moe-16b-base"
+    n_layers: 28
+    n_experts: 64
+    k: 6
+    n_shared_experts: 2
+    hidden_size: 2048
+    expert_intermediate_size: 1408
+    gated: false
+    traced: false          # PROJECTED only -- see PREDICTED.md
+  qwen1_5_moe_a2_7b:
+    hf_id: "Qwen/Qwen1.5-MoE-A2.7B"
+    n_layers: 24
+    n_experts: 60
+    k: 4
+    n_shared_experts: 4
+    hidden_size: 2048
+    expert_intermediate_size: 1408
+    gated: false
+    traced: false          # PROJECTED only -- see PREDICTED.md
+
+sweep_defaults:
+  residency_pct_grid: [0, 12.5, 25, 37.5, 50, 75]
+  batch_grid: [1, 8, 32]
+  precision_grid: ["fp16", "nf4"]
+  context_len_grid: [4096, 32768, 131072]
