@@ -31,5 +31,5 @@ mkdir -p "$HERE/results/olmoe/b1" "$HERE/results/olmoe/b8" "$HERE/results/prompt
 echo
 echo "[setup] done. Next steps:"
 echo "  1) source $VENV_DIR/bin/activate"
-echo "  2) huggingface-cli login          # only needed if HF account required for download"
+echo "  2) hf auth login                  # only needed if HF account required for download"
 echo "  3) bash run_pilot.sh              # downloads OLMoE-1B-7B on first run, then runs the full pilot"

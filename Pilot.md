@@ -120,7 +120,7 @@ Thresholds are not arbitrary: Coverage@25% ≥ 60% means a 4× capacity reductio
 python -m venv ~/elp && source ~/elp/bin/activate
 pip install "torch>=2.3" transformers accelerate datasets zstandard pandas numpy \
             matplotlib bitsandbytes sentencepiece  # bitsandbytes only needed for Mixtral NF4
-huggingface-cli login   # OLMoE + Mixtral are gated-free but need auth for Mixtral
+hf auth login   # OLMoE + Mixtral are gated-free but need auth for Mixtral
 ```
 
 ### 3.2 Trace collector (core ~60 lines; the whole pilot's code is <300 lines)

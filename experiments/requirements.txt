@@ -1,0 +1,5 @@
+# Extra dependency for experiments/ on top of elp_probe/requirements.txt
+# (numpy/pandas/scipy/matplotlib/zstandard/transformers/accelerate/bitsandbytes/
+# huggingface_hub are already installed by elp_probe/setup.sh into the shared
+# $HOME/elp venv -- this file only adds what E1/E2's tests need).
+pytest

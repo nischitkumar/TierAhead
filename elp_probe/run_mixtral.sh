@@ -4,7 +4,7 @@
 # NF4 quant -> ~26GB weights, fits with headroom for KV cache/activations.
 # device_map="auto" splits layers across both GPUs on this node automatically.
 #
-# Needs: `huggingface-cli login` + accepted license at
+# Needs: `hf auth login` + accepted license at
 # https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1 (gated repo).
 #
 # Pinned transformers==4.46.3: current transformers (>=5.x) refactored

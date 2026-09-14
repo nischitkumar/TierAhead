@@ -29,7 +29,7 @@ from prompts import build_workload, save_prompt_list  # noqa: E402
 
 MODEL_REGISTRY = {
     "olmoe": "allenai/OLMoE-1B-7B-0924",
-    "mixtral": "mistralai/Mixtral-8x7B-Instruct-v0.1",  # gated: accept license + huggingface-cli login
+    "mixtral": "mistralai/Mixtral-8x7B-Instruct-v0.1",  # gated: accept license + `hf auth login`
 }
 
 

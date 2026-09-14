@@ -1,0 +1,755 @@
+{
+  "models": [
+    "olmoe",
+    "mixtral"
+  ],
+  "batch_grid": [
+    1,
+    8,
+    32
+  ],
+  "residency_pct_grid": [
+    0,
+    12.5,
+    25,
+    37.5,
+    50,
+    75
+  ],
+  "precision_grid": [
+    "fp16",
+    "nf4"
+  ],
+  "bw_gbps_grid": [
+    16,
+    32,
+    64,
+    128
+  ],
+  "compute_provenance": {
+    "olmoe": "measured_here",
+    "mixtral": "measured_here"
+  },
+  "e_union_by_batch": {
+    "olmoe": {
+      "1": 8.0,
+      "8": 36.654125,
+      "32": 58.734
+    },
+    "mixtral": {
+      "1": 2.0,
+      "8": 7.144625,
+      "32": 7.9971250000000005
+    }
+  },
+  "provisioning_table": [
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 926.4052068434661,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 810.6045559880329,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 694.8039051325997,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 579.0032542771662,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 463.20260342173304,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 231.60130171086652,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 1095.989361817372,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 958.9906915902003,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 821.9920213630289,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 684.9933511358576,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 547.994680908686,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 273.997340454343,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 545.9110019046914,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 477.6721266666049,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 409.4332514285185,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 341.1943761904321,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 272.9555009523457,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 136.47775047617284,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 238.95464304018657,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 209.0853126601632,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 179.21598228013988,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 149.3466519001166,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 119.47732152009328,
+      "nearest_supported_link_gbps": 128.0
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 59.73866076004664,
+      "nearest_supported_link_gbps": 64.0
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 282.6967560137684,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 247.35966151204727,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 212.02256701032627,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 176.68547250860522,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 141.3483780068842,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 70.6741890034421,
+      "nearest_supported_link_gbps": 128.0
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 140.8109190537913,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 123.20955417206741,
+      "nearest_supported_link_gbps": 128.0
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 105.6081892903435,
+      "nearest_supported_link_gbps": 128.0
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 88.00682440861958,
+      "nearest_supported_link_gbps": 128.0
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 70.40545952689565,
+      "nearest_supported_link_gbps": 128.0
+    },
+    {
+      "model": "mixtral",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 35.20272976344783,
+      "nearest_supported_link_gbps": 64.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 33.64558127424685,
+      "nearest_supported_link_gbps": 64.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 29.439883614965996,
+      "nearest_supported_link_gbps": 32.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 25.23418595568514,
+      "nearest_supported_link_gbps": 32.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 21.02848829640428,
+      "nearest_supported_link_gbps": 32.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 16.822790637123425,
+      "nearest_supported_link_gbps": 32.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 1,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 8.411395318561713,
+      "nearest_supported_link_gbps": 16.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 151.77691732945175,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 132.80480266327027,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 113.83268799708881,
+      "nearest_supported_link_gbps": 128.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 94.86057333090734,
+      "nearest_supported_link_gbps": 128.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 75.88845866472587,
+      "nearest_supported_link_gbps": 128.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 8,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 37.94422933236294,
+      "nearest_supported_link_gbps": 64.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 238.42114563678174,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 208.61850243218402,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 178.81585922758632,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 149.0132160229886,
+      "nearest_supported_link_gbps": NaN
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 119.21057281839087,
+      "nearest_supported_link_gbps": 128.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "fp16",
+      "batch": 32,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 59.605286409195436,
+      "nearest_supported_link_gbps": 64.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 8.678457119926046,
+      "nearest_supported_link_gbps": 16.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 7.593649979935291,
+      "nearest_supported_link_gbps": 16.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 6.508842839944535,
+      "nearest_supported_link_gbps": 16.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 5.424035699953779,
+      "nearest_supported_link_gbps": 16.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 4.339228559963023,
+      "nearest_supported_link_gbps": 16.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 1,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 2.1696142799815115,
+      "nearest_supported_link_gbps": 16.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 39.14895861366546,
+      "nearest_supported_link_gbps": 64.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 34.255338786957275,
+      "nearest_supported_link_gbps": 64.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 29.361718960249092,
+      "nearest_supported_link_gbps": 32.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 24.468099133540914,
+      "nearest_supported_link_gbps": 32.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 19.57447930683273,
+      "nearest_supported_link_gbps": 32.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 8,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 9.787239653416364,
+      "nearest_supported_link_gbps": 16.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 0.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 61.49775425268739,
+      "nearest_supported_link_gbps": 64.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 12.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 53.81053497110147,
+      "nearest_supported_link_gbps": 64.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 25.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 46.12331568951555,
+      "nearest_supported_link_gbps": 64.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 37.5,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 38.43609640792962,
+      "nearest_supported_link_gbps": 64.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 50.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 30.748877126343697,
+      "nearest_supported_link_gbps": 32.0
+    },
+    {
+      "model": "olmoe",
+      "precision": "nf4",
+      "batch": 32,
+      "residency_pct": 75.0,
+      "compute_provenance": "measured_here",
+      "required_bw_gbps_for_rho1": 15.374438563171848,
+      "nearest_supported_link_gbps": 16.0
+    }
+  ],
+  "headline_sentences": {
+    "mixtral_fp16": "mixtral (fp16): NOT reachable anywhere in the swept grid (batch<=64, residency<=75%, link<=128 GB/s) -- even at the most favorable point tested this regime needs ~136 GB/s to hit rho=1. Byte reduction (E7 precision-gating), not prefetch alone, is required here.",
+    "mixtral_nf4": "mixtral (nf4): router-guided prefetch is worth something (rho<1) once residency >= 75% on a >=64 GB/s link at batch >= 1 (expert ~90.9 MB, t_compute source: measured_here).",
+    "olmoe_fp16": "olmoe (fp16): router-guided prefetch is worth something (rho<1) once residency >= 75% on a >=16 GB/s link at batch >= 1 (expert ~12.6 MB, t_compute source: measured_here).",
+    "olmoe_nf4": "olmoe (nf4): router-guided prefetch is worth something (rho<1) once residency >= 0% on a >=16 GB/s link at batch >= 1 (expert ~3.2 MB, t_compute source: measured_here)."
+  },
+  "achievable_points_from_pilot": {
+    "olmoe": [
+      {
+        "residency_pct": 12.5,
+        "deployable_coverage": 0.35195124241096576,
+        "oracle_coverage": 0.35458246620141454
+      },
+      {
+        "residency_pct": 25.0,
+        "deployable_coverage": 0.5223201711835764,
+        "oracle_coverage": 0.5254149519621957
+      },
+      {
+        "residency_pct": 37.5,
+        "deployable_coverage": 0.6457456421731239,
+        "oracle_coverage": 0.64915288383301
+      },
+      {
+        "residency_pct": 50.0,
+        "deployable_coverage": 0.7414144160355511,
+        "oracle_coverage": 0.7463448433685923
+      }
+    ],
+    "mixtral": [
+      {
+        "residency_pct": 12.5,
+        "deployable_coverage": 0.15041529532111725,
+        "oracle_coverage": 0.15085542311569708
+      },
+      {
+        "residency_pct": 25.0,
+        "deployable_coverage": 0.2866093666607365,
+        "oracle_coverage": 0.28916303445413033
+      },
+      {
+        "residency_pct": 37.5,
+        "deployable_coverage": 0.41618206280021347,
+        "oracle_coverage": 0.4207028701891716
+      },
+      {
+        "residency_pct": 50.0,
+        "deployable_coverage": 0.5446326647097195,
+        "oracle_coverage": 0.5476347995611694
+      }
+    ]
+  },
+  "figures": [
+    "/home/cd/Code/experiments/e1_roofline/out/figures/roofline_mixtral_fp16.pdf",
+    "/home/cd/Code/experiments/e1_roofline/out/figures/roofline_mixtral_nf4.pdf",
+    "/home/cd/Code/experiments/e1_roofline/out/figures/roofline_olmoe_fp16.pdf",
+    "/home/cd/Code/experiments/e1_roofline/out/figures/roofline_olmoe_nf4.pdf"
+  ],
+  "n_trials": 500,
+  "seed": 0
+}
