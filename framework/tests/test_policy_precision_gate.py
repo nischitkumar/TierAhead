@@ -1,6 +1,6 @@
 import pytest
 
-from tiermoe.policy.precision_gate import PrecisionGatePolicy, expected_delta_ppl, sweep_thresholds
+from tierahead.policy.precision_gate import PrecisionGatePolicy, expected_delta_ppl, sweep_thresholds
 
 
 def test_decide_thresholds():

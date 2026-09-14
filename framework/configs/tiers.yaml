@@ -1,6 +1,6 @@
-# Memory-tier hardware parameters -- mirrors tiermoe/specs/tiers.py.
+# Memory-tier hardware parameters -- mirrors tierahead/specs/tiers.py.
 # Edit this file to override defaults at runtime without touching code;
-# tiermoe.specs.tiers.TIER_SPECS is the source of truth the code actually
+# tierahead.specs.tiers.TIER_SPECS is the source of truth the code actually
 # imports (this file is a human-editable, documented mirror consumed by the
 # CLI's --tiers-config flag, not yet wired to override the Python defaults
 # automatically -- see README.md's "Configuration" section).

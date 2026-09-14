@@ -1,4 +1,4 @@
-from tiermoe.sim.engine import TrafficClass, pareto_labels, pctile_stats, pooled_simulate, simulate_link
+from tierahead.sim.engine import TrafficClass, pareto_labels, pctile_stats, pooled_simulate, simulate_link
 
 
 def test_single_periodic_class_no_contention():

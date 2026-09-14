@@ -1,4 +1,4 @@
-# tierMoE: What's Verified, What's Simulated, What's Projected
+# TierAhead: What's Verified, What's Simulated, What's Projected
 
 This document is the honesty ledger for the `framework/` package. Every claim
 below is tagged with one of three maturity levels — read the tag before you
@@ -7,7 +7,7 @@ quote the number anywhere (a report, a slide, an internship pitch):
 | Tag | Meaning | Who/what produced it |
 |---|---|---|
 | **MEASURED** | A real quantity computed directly from real, already-collected trace data (router decisions from 250 real chat/code requests through real model forward passes), with no simulation step in between. | The original pilot (ELP-Probe) and experiments E1/E2/E4/E5/E8, reproduced and cross-checked by this framework's own test suite. |
-| **SIMULATED** | A real number this framework's own code actually computed and this session actually ran, but which depends on the `flop_estimate` compute-time model (no real GPU calibration exists yet — see the Methodology section) and/or this framework's own discrete-event simulation logic rather than a live re-run of the model. | `tiermoe.sim`, `tiermoe.tco`, `tiermoe.kv` — new code written for this framework (E6, E9 were speced but never implemented anywhere in this repo before now; E7's byte-accounting side is implemented here for the first time too). |
+| **SIMULATED** | A real number this framework's own code actually computed and this session actually ran, but which depends on the `flop_estimate` compute-time model (no real GPU calibration exists yet — see the Methodology section) and/or this framework's own discrete-event simulation logic rather than a live re-run of the model. | `tierahead.sim`, `tierahead.tco`, `tierahead.kv` — new code written for this framework (E6, E9 were speced but never implemented anywhere in this repo before now; E7's byte-accounting side is implemented here for the first time too). |
 | **PROJECTED** | Not run anywhere in this repository. A documented, literature-cited expectation for what a real run (on a CUDA box, on Linux with CXLMemSim, or with real fleet telemetry) would plausibly show, structured so that real run can replace the projection without changing any downstream code. | Cited papers (arXiv IDs given every time) + this framework's own architecture-derived arithmetic. |
 
 Nothing in this document is asserted as more certain than these tags say it
@@ -25,13 +25,13 @@ such rather than re-padded with busywork:
 
 | # | Mentor feedback | Disposition | Where |
 |---|---|---|---|
-| 1 | Report precision alongside recall | **New**: `precision_overall`/`precision_nonresident` added, with the exact-identity-vs-genuinely-informative distinction proven by test | §1 (below), `tiermoe.analyze.workload` |
-| 2 | Evaluate under concurrent inference / CXL bandwidth contention | **New**: closed-loop fair-share model + stability boundary, with an honest finding (see §2.5) | §2.5, `tiermoe.sim.concurrency` |
-| 3 | Account for HBM pressure from KV cache | **New**: KV-vs-expert HBM budget accounting, can cap residency or flip feasibility entirely | §2.4, `tiermoe.baseline.compare.kv_hbm_pressure` |
-| 4 | Stronger baselines: static + popularity-aware | **Extended**: `static-c` already was popularity-ranked; added `popularity-prefetch` (unconditioned) to isolate the value of conditioning | §2.1, `tiermoe.sim.policies` |
-| 5 | Hybrid tiering + prefetching (hot resident, cold prefetched) | **New**: `hybrid-lru-prefetch` policy; surfaced and fixed a real double-counted-memory-budget bug in the pre-existing `lru` policy along the way | §2.1, `tiermoe.sim.policies` |
+| 1 | Report precision alongside recall | **New**: `precision_overall`/`precision_nonresident` added, with the exact-identity-vs-genuinely-informative distinction proven by test | §1 (below), `tierahead.analyze.workload` |
+| 2 | Evaluate under concurrent inference / CXL bandwidth contention | **New**: closed-loop fair-share model + stability boundary, with an honest finding (see §2.5) | §2.5, `tierahead.sim.concurrency` |
+| 3 | Account for HBM pressure from KV cache | **New**: KV-vs-expert HBM budget accounting, can cap residency or flip feasibility entirely | §2.4, `tierahead.baseline.compare.kv_hbm_pressure` |
+| 4 | Stronger baselines: static + popularity-aware | **Extended**: `static-c` already was popularity-ranked; added `popularity-prefetch` (unconditioned) to isolate the value of conditioning | §2.1, `tierahead.sim.policies` |
+| 5 | Hybrid tiering + prefetching (hot resident, cold prefetched) | **New**: `hybrid-lru-prefetch` policy; surfaced and fixed a real double-counted-memory-budget bug in the pre-existing `lru` policy along the way | §2.1, `tierahead.sim.policies` |
 | 6 | Core challenge: prefetching hides latency consistently across models/conditions | **Answered honestly, not assumed**: holds at concurrency=1 across both models; demonstrably does *not* hold once realistic concurrent load is added at these bandwidths — the framework now measures exactly where that boundary is instead of asserting consistency it can't back up | §2.5 |
-| 7 | Ensure HBM-only vs HBM+CXL comparison is actually functional | **Already built, now strengthened**: `tiermoe baseline` always runs both sides; now also threads through concurrency and KV pressure so the comparison reflects realistic serving load, not just a single idle request | `tiermoe.baseline.compare.run_baseline_vs_cxl` |
+| 7 | Ensure HBM-only vs HBM+CXL comparison is actually functional | **Already built, now strengthened**: `tierahead baseline` always runs both sides; now also threads through concurrency and KV pressure so the comparison reflects realistic serving load, not just a single idle request | `tierahead.baseline.compare.run_baseline_vs_cxl` |
 
 Point 6 is deliberately not softened: a framework whose central claim only
 holds in the easy case would be a worse deliverable than one that tells you
@@ -45,7 +45,7 @@ Source: `results/pilot_summary.json` (OLMoE), `results/mixtral_summary.json`
 (Mixtral), both produced by `elp_probe/src/analyze.py` on a request-level
 70/30 train/test split (see `Pilot.md` section 1.7 for why the split is by
 *request*, not by token). Reproduced independently by
-`tiermoe.analyze.workload.run_characterization` and cross-checked to within
+`tierahead.analyze.workload.run_characterization` and cross-checked to within
 1% by `tests/test_analyze.py::test_run_characterization_{olmoe,mixtral}_*` —
 **both pass on this machine**.
 
@@ -87,7 +87,7 @@ threshold at m=k for any tested depth (expected: the pilot's own ≥0.6 bar was
 measured at m=2k, not m=k — not a broken predictor).
 
 **Prefetch precision alongside recall (mentor-review ask — MEASURED, recomputed
-by `tiermoe.analyze.workload.recall_at_m`):** high recall alone is free to buy
+by `tierahead.analyze.workload.recall_at_m`):** high recall alone is free to buy
 by fetching more candidates (`m`), so it doesn't by itself show a predictor is
 any good — precision closes that gap. Two precision numbers exist and they
 are **not** interchangeable:
@@ -122,9 +122,9 @@ link isn't saturated.
 
 ## 2. SIMULATED — this framework's own code, run on real traces, this session
 
-These numbers come from `tiermoe.sim` (E6, never implemented before this
-framework — no `e6_*` folder exists in `experiments/`), `tiermoe.tco` (E9,
-same situation), and `tiermoe.policy.precision_gate` (E7's byte-accounting
+These numbers come from `tierahead.sim` (E6, never implemented before this
+framework — no `e6_*` folder exists in `experiments/`), `tierahead.tco` (E9,
+same situation), and `tierahead.policy.precision_gate` (E7's byte-accounting
 side). All 120 tests in `tests/` pass on this machine (650s combined run),
 including the seven
 E6-style validation gates (oracle is the upper bound; residency=100% +
@@ -230,7 +230,7 @@ pieces of code agreeing on this is stronger evidence than either alone.
 
 ### 2.2 TCO / pooling (E9)
 
-`tiermoe.tco.pooling` implements Pond's stranding argument via a standard
+`tierahead.tco.pooling` implements Pond's stranding argument via a standard
 portfolio-variance model (aggregate safety margin shrinks as 1/√(pool size)
 for independent per-host demand — see the module docstring for the full
 derivation). Verified property (test-enforced, not merely illustrated):
@@ -252,7 +252,7 @@ at the cost of 1.5pp of oracle-gap-closed versus ungated `prefetch-v2` (85.0%
 point. The **quality** side (real ΔPPL from actually substituting NF4 experts
 during inference) is PROJECTED, not measured — see section 3.
 
-### 2.4 KV-cache HBM pressure (mentor-review ask, E-new, `tiermoe.baseline.compare.kv_hbm_pressure`)
+### 2.4 KV-cache HBM pressure (mentor-review ask, E-new, `tierahead.baseline.compare.kv_hbm_pressure`)
 
 KV cache lives in the same HBM budget as resident expert weights — a
 long-context serving workload can crowd out expert residency entirely, which
@@ -279,7 +279,7 @@ KV accounting entirely, preserving the original single-request behavior
 exactly — tested in `tests/test_baseline_compare.py` (6 tests, including a
 same-as-before check at `context_len=0`).
 
-### 2.5 Concurrent inference / CXL bandwidth contention (mentor-review ask, E-new, `tiermoe.sim.concurrency`)
+### 2.5 Concurrent inference / CXL bandwidth contention (mentor-review ask, E-new, `tierahead.sim.concurrency`)
 
 **This is the section that answers mentor point 6 honestly — the core
 challenge of showing prefetching hides latency consistently across
@@ -330,7 +330,7 @@ because Mixtral's LRU/prefetch hit rate is so high (8 experts/layer, Gini
 0.066) that almost no bytes need transferring regardless of how the link is
 shared.
 
-**The mechanism, made precise by `tiermoe.sim.concurrency.aggregate_rho` /
+**The mechanism, made precise by `tierahead.sim.concurrency.aggregate_rho` /
 `max_sustainable_concurrency`:** conditional prefetch's byte budget is
 governed by `m_affordable`, which shrinks as the *effective* per-stream
 bandwidth (`bw_gbps / concurrency`) shrinks — so concurrency dividing
@@ -361,7 +361,7 @@ promotion is itself a form of anticipatory placement) that keeps working past
 that point.
 
 **This finding is now enforced, not just narrated by hand.**
-`tiermoe.sim.validation.run_validation_suite` (`tiermoe validate --model
+`tierahead.sim.validation.run_validation_suite` (`tierahead validate --model
 <m>`) gained three gates specifically for this: oracle's TPOT must be
 invariant to concurrency (it never touches the shared link), a
 byte-transferring policy's TPOT must be monotonically non-decreasing in
@@ -372,7 +372,7 @@ just concurrency=1. A fourth, non-pass/fail companion —
 a named policy becomes numerically indistinguishable from `static-c`, turning
 "conditional prefetch collapses under load" into a number computed on demand
 for any model/operating point, not just the two written up above by hand.
-`tiermoe baseline --concurrency-grid 1,2,4,8` (`run_flagship_report`) runs
+`tierahead baseline --concurrency-grid 1,2,4,8` (`run_flagship_report`) runs
 the complete capacity+KV+bake-off comparison once per concurrency level in
 one call, and the dashboard's Policy explorer tab has an opt-in "Show
 concurrency sweep" chart plotting exactly this collapse curve live.
@@ -384,7 +384,7 @@ concurrency sweep" chart plotting exactly this collapse curve live.
 ### 3.1 Methodology note: real GPU compute/transfer calibration (E3)
 
 **Status: the shipped `calib_compute.json` cannot be trusted as a real
-measurement.** This framework's own `tiermoe.roofline.model.
+measurement.** This framework's own `tierahead.roofline.model.
 validate_calib_sanity` (added specifically because of this finding) flags
 **both** OLMoE and Mixtral entries in
 `experiments/e1_roofline/out/calib_compute.json`:
@@ -407,15 +407,15 @@ validate_calib_sanity` (added specifically because of this finding) flags
   *shorten* ρ (make more configurations latency-bound than the numbers above
   suggest), not lengthen it. Projected direction: **favorable**, magnitude
   unknown until measured.
-- **To close this gap:** run `tiermoe.calibrate.compute --model {olmoe,mixtral}`
+- **To close this gap:** run `tierahead.calibrate.compute --model {olmoe,mixtral}`
   on a real CUDA box (single 24GB GPU is sufficient per the project's own
-  E3_CALIBRATION.md correction), then `tiermoe.calibrate.transfer_measure`,
-  `.e2e_offload`, `.nf4_fidelity`, then `tiermoe.calibrate.report.
+  E3_CALIBRATION.md correction), then `tierahead.calibrate.transfer_measure`,
+  `.e2e_offload`, `.nf4_fidelity`, then `tierahead.calibrate.report.
   build_calibration_report(...)` — every number in sections 1–2 recomputes
   automatically once a real, sanity-check-passing `calib_compute.json` exists.
 
 Literature anchors for what real CXL numbers to expect (already wired into
-`tiermoe.specs.tiers.TIER_SPECS`): CXL 2.0 ×8 ≈ 32 GB/s / +170–250ns added
+`tierahead.specs.tiers.TIER_SPECS`): CXL 2.0 ×8 ≈ 32 GB/s / +170–250ns added
 latency, CXL 3.x multi-link ≈ 128 GB/s (Sun et al., *Demystifying CXL Memory*,
 ISCA 2023; Astera Labs Leo product brief). PCIe 4.0 ×16 ≈ 25 GB/s effective
 (FloE, arXiv:2505.05950) is the measured-physical-layer analogue this
@@ -424,7 +424,7 @@ silicon.
 
 ### 3.2 Real precision-gating quality cost (E7, quality side)
 
-`tiermoe.policy.precision_gate.expected_delta_ppl` returns a documented prior
+`tierahead.policy.precision_gate.expected_delta_ppl` returns a documented prior
 — ΔPPL ≈ 0.15 × (bytes-saved fraction), capped at 0.6, tagged
 `provenance="projected_from_literature"` — anchored on two papers:
 
@@ -451,7 +451,7 @@ No production MoE-serving fleet was ever instrumented for this project — every
 TCO number is built on a synthetic log-normal demand model (section 2.2).
 Cost-ratio grounding (HBM ≥3× DDR5 $/GB, swept 2–5×) is cited from *Amplifying
 Effective CXL Memory Bandwidth for LLM Inference* (arXiv:2509.03377) and
-applied via `tiermoe.tco.pooling.tco_crossover`, which already produces a
+applied via `tierahead.tco.pooling.tco_crossover`, which already produces a
 real crossover table — the CXL controller markup (1.15× DDR5, `Main.md`
 section 4.6's own placeholder) is the one number in this pipeline with no
 citation at all; treat it as the most negotiable assumption in the whole
@@ -461,17 +461,17 @@ ladder.
 
 Three artifacts Main.md's own plan calls for, none built/run here:
 
-1. **Real PCIe offloading ground truth** — `tiermoe.calibrate.e2e_offload`
+1. **Real PCIe offloading ground truth** — `tierahead.calibrate.e2e_offload`
    is written and ready but CUDA-only; expected ordering
    `next-layer-topk ≤ static-hot ≤ none` (checked by
-   `tiermoe.calibrate.policy_check`, itself fully tested with synthetic
+   `tierahead.calibrate.policy_check`, itself fully tested with synthetic
    fixtures in this repo).
 2. **QEMU CXL Type-3 software-stack demo** — not attempted; needs an x86_64
    Linux host with KVM. Functional, not timing-accurate, per Main.md's own
    framing — its value is proving familiarity with the real Linux CXL stack
    (`cxl create-region`, DAX/kmem, `numactl --membind`), not producing a
    number this document would report.
-3. **Real CXLMemSim run** — see `tiermoe/sim/backends/cxlmemsim.py` and
+3. **Real CXLMemSim run** — see `tierahead/sim/backends/cxlmemsim.py` and
    `demo/cxlmemsim/README.md`. This is the one artifact that WOULD produce a
    directly comparable number to section 2.1's table (real epoch-based CXL
    timing injection on the actual OLMoE forward pass) if run on Linux.
@@ -480,18 +480,18 @@ Three artifacts Main.md's own plan calls for, none built/run here:
 
 ### 3.5 Model generalization beyond n=2 (E11)
 
-`tiermoe.specs.models.MODEL_SPECS` already includes architecture specs for
+`tierahead.specs.models.MODEL_SPECS` already includes architecture specs for
 DeepSeek-MoE-16B (64 routed + 2 shared experts, top-6) and Qwen1.5-MoE-A2.7B
 (60 routed + 4 shared, top-4) — both marked `UNTRACED_MODELS`, meaning the
 roofline/TCO/KV modules can already compute projected numbers for them (byte
-sizes, KV formulas) but `tiermoe.analyze`/`tiermoe.sim` have nothing to run
-against without real traces. `tiermoe.policy.residency.FixedResidencyPolicy`'s
+sizes, KV formulas) but `tierahead.analyze`/`tierahead.sim` have nothing to run
+against without real traces. `tierahead.policy.residency.FixedResidencyPolicy`'s
 `n_shared_experts` parameter already implements the "shared experts are
 always resident" free placement rule these two architectures would need —
 tested with synthetic data in `tests/test_policy_residency.py`, unverified
 against these models' real routing behavior.
 
-**To close this gap:** trace both models with `tiermoe.collect` on a CUDA box
+**To close this gap:** trace both models with `tierahead.collect` on a CUDA box
 (both fit in NF4 on a single 24GB GPU per Main.md section 8.2), then every
 number in sections 1–2 of this document recomputes for n=4 models instead of
 n=2 with no code changes — only new `results/{model}/b1/traces.jsonl.zst`
@@ -506,20 +506,20 @@ manufacture it without the trace data.
 
 | Original experiment | Built in this framework? | Run in this session? | Tag |
 |---|---|---|---|
-| Pilot (ELP-Probe) | `tiermoe.analyze`, `tiermoe.traces` | ✅ (reproduces committed numbers) | MEASURED |
-| E1 Roofline | `tiermoe.roofline` | ✅ | SIMULATED (compute) / MEASURED (E_union) |
-| E2 Batching sweet spot | `tiermoe.eunion` (core primitive reused) | partially — B* sweep not re-exposed as its own CLI command | SIMULATED |
-| E3 Hardware calibration | `tiermoe.calibrate.*` | GPU submodules: no (no CUDA here); `policy_check`/`report`: ✅ | PROJECTED (GPU parts) |
-| E4 Predictor v2 | `tiermoe.policy.predictor_mlp`, `.features`, `.calibration` | reused inside `tiermoe.sim`'s `prefetch-v2` | MEASURED (original) |
-| E5 Lookahead depth | `tiermoe.policy.lookahead` | not re-run standalone this session (logic reused inside `tiermoe.sim`'s depth parameter) | MEASURED (original) |
-| **E6 Simulator + policy bake-off** | `tiermoe.sim` (**new — never existed before**) | ✅, both models, 4 validation gates | **SIMULATED** |
-| **E7 Precision-gated prefetch** | `tiermoe.policy.precision_gate` (**new**) | ✅ byte side; ❌ quality side | SIMULATED (bytes) / PROJECTED (quality) |
-| E8 KV co-tenancy | `tiermoe.kv.cotenancy` (generalized onto `tiermoe.sim.engine`) | ✅ | MEASURED (original) / SIMULATED (this port) |
-| **E9 Pooling & TCO** | `tiermoe.tco` (**new — never existed before**) | ✅ | **SIMULATED** |
-| E10 Hardware validation | `tiermoe.calibrate.e2e_offload`, `tiermoe/sim/backends/cxlmemsim.py` | ❌ (CUDA/Linux-only) | PROJECTED |
+| Pilot (ELP-Probe) | `tierahead.analyze`, `tierahead.traces` | ✅ (reproduces committed numbers) | MEASURED |
+| E1 Roofline | `tierahead.roofline` | ✅ | SIMULATED (compute) / MEASURED (E_union) |
+| E2 Batching sweet spot | `tierahead.eunion` (core primitive reused) | partially — B* sweep not re-exposed as its own CLI command | SIMULATED |
+| E3 Hardware calibration | `tierahead.calibrate.*` | GPU submodules: no (no CUDA here); `policy_check`/`report`: ✅ | PROJECTED (GPU parts) |
+| E4 Predictor v2 | `tierahead.policy.predictor_mlp`, `.features`, `.calibration` | reused inside `tierahead.sim`'s `prefetch-v2` | MEASURED (original) |
+| E5 Lookahead depth | `tierahead.policy.lookahead` | not re-run standalone this session (logic reused inside `tierahead.sim`'s depth parameter) | MEASURED (original) |
+| **E6 Simulator + policy bake-off** | `tierahead.sim` (**new — never existed before**) | ✅, both models, 4 validation gates | **SIMULATED** |
+| **E7 Precision-gated prefetch** | `tierahead.policy.precision_gate` (**new**) | ✅ byte side; ❌ quality side | SIMULATED (bytes) / PROJECTED (quality) |
+| E8 KV co-tenancy | `tierahead.kv.cotenancy` (generalized onto `tierahead.sim.engine`) | ✅ | MEASURED (original) / SIMULATED (this port) |
+| **E9 Pooling & TCO** | `tierahead.tco` (**new — never existed before**) | ✅ | **SIMULATED** |
+| E10 Hardware validation | `tierahead.calibrate.e2e_offload`, `tierahead/sim/backends/cxlmemsim.py` | ❌ (CUDA/Linux-only) | PROJECTED |
 | E11 Model generalization | specs added for 2 more models | ❌ (no traces) | PROJECTED |
 | E12 Ablations/reproducibility | `pytest tests/` IS this framework's version of "make reproduce" | ✅ 120/120 pass (650s) | MEASURED (this framework) |
-| E13 Dashboard | `tiermoe.dashboard` | ✅ (all 4 tabs headlessly smoke-tested via Streamlit's `AppTest` harness — 0 exceptions across every tab's default render, not just data-shaping logic checked standalone) | SIMULATED |
+| E13 Dashboard | `tierahead.dashboard` | ✅ (all 4 tabs headlessly smoke-tested via Streamlit's `AppTest` harness — 0 exceptions across every tab's default render, not just data-shaping logic checked standalone) | SIMULATED |
 
 ## 5. The four sentences that win this (three original + one earned by mentor review)
 

@@ -16,7 +16,7 @@ fi
 source .venv/bin/activate
 
 echo "=== [1/6] hardware capability report ==="
-python3 -m tiermoe.cli doctor
+python3 -m tierahead.cli doctor
 echo
 
 echo "=== [2/6] unit + integration tests (real committed traces) ==="
@@ -24,22 +24,22 @@ python3 -m pytest tests/ -q
 echo
 
 echo "=== [3/6] roofline (both models) ==="
-python3 -m tiermoe.cli roofline --model olmoe
-python3 -m tiermoe.cli roofline --model mixtral
+python3 -m tierahead.cli roofline --model olmoe
+python3 -m tierahead.cli roofline --model mixtral
 echo
 
 echo "=== [4/6] E6 validation gates ==="
-python3 -m tiermoe.cli validate --model olmoe
-python3 -m tiermoe.cli validate --model mixtral
+python3 -m tierahead.cli validate --model olmoe
+python3 -m tierahead.cli validate --model mixtral
 echo
 
 echo "=== [5/6] baseline (normal, HBM-only) vs CXL-tiered -- OLMoE ==="
-python3 -m tiermoe.cli baseline --model olmoe --residency-pct 25 --bw-gbps 32 --precision fp16
+python3 -m tierahead.cli baseline --model olmoe --residency-pct 25 --bw-gbps 32 --precision fp16
 echo
 
 echo "=== [6/6] baseline (normal, HBM-only) vs CXL-tiered -- Mixtral (NF4) ==="
-python3 -m tiermoe.cli baseline --model mixtral --residency-pct 25 --bw-gbps 32 --precision nf4
+python3 -m tierahead.cli baseline --model mixtral --residency-pct 25 --bw-gbps 32 --precision nf4
 echo
 
-echo "Done. See README.md for the dashboard (tiermoe dashboard) and PREDICTED.md"
+echo "Done. See README.md for the dashboard (tierahead dashboard) and PREDICTED.md"
 echo "for how these numbers extend to what hasn't been run yet."

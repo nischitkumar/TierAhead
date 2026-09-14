@@ -1,8 +1,8 @@
-from tiermoe.roofline.model import (
+from tierahead.roofline.model import (
     bytes_per_layer, get_t_compute_ms, required_bw_gbps, rho, run_roofline,
     t_compute_flop_ms, t_transfer_ms, validate_calib_sanity,
 )
-from tiermoe.specs import MODEL_SPECS
+from tierahead.specs import MODEL_SPECS
 
 
 def test_rho_less_than_one_is_latency_bound():

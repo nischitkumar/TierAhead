@@ -1,5 +1,5 @@
-from tiermoe.hw import probe
-from tiermoe.sim.backends import select_backend
+from tierahead.hw import probe
+from tierahead.sim.backends import select_backend
 
 
 def test_probe_returns_capabilities():

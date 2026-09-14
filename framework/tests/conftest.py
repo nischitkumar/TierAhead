@@ -1,7 +1,7 @@
 import pytest
 
-from tiermoe.specs import MODEL_SPECS
-from tiermoe.traces.io import find_data_root, resolve_trace_dir
+from tierahead.specs import MODEL_SPECS
+from tierahead.traces.io import find_data_root, resolve_trace_dir
 
 
 @pytest.fixture(scope="session")

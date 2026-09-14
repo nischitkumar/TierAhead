@@ -16,27 +16,27 @@ test-fast:
 	$(PY) -m pytest tests/ -q -k "not mixtral and not Mixtral"
 
 doctor:
-	$(PY) -m tiermoe.cli doctor
+	$(PY) -m tierahead.cli doctor
 
 # The flagship end-to-end demo: normal (HBM-only) baseline vs CXL-tiered,
 # on the pilot's real committed traces. No GPU needed.
 baseline:
-	$(PY) -m tiermoe.cli baseline --model olmoe --residency-pct 25 --bw-gbps 32
-	$(PY) -m tiermoe.cli baseline --model mixtral --residency-pct 25 --bw-gbps 32 --precision nf4
+	$(PY) -m tierahead.cli baseline --model olmoe --residency-pct 25 --bw-gbps 32
+	$(PY) -m tierahead.cli baseline --model mixtral --residency-pct 25 --bw-gbps 32 --precision nf4
 
 sim:
-	$(PY) -m tiermoe.cli sim --model olmoe --residency-pct 25 --bw-gbps 32
+	$(PY) -m tierahead.cli sim --model olmoe --residency-pct 25 --bw-gbps 32
 
 roofline:
-	$(PY) -m tiermoe.cli roofline --model olmoe
-	$(PY) -m tiermoe.cli roofline --model mixtral
+	$(PY) -m tierahead.cli roofline --model olmoe
+	$(PY) -m tierahead.cli roofline --model mixtral
 
 validate:
-	$(PY) -m tiermoe.cli validate --model olmoe
-	$(PY) -m tiermoe.cli validate --model mixtral
+	$(PY) -m tierahead.cli validate --model olmoe
+	$(PY) -m tierahead.cli validate --model mixtral
 
 dashboard:
-	$(PY) -m tiermoe.cli dashboard
+	$(PY) -m tierahead.cli dashboard
 
 clean:
 	rm -rf $(VENV) .pytest_cache **/__pycache__

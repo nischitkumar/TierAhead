@@ -1,4 +1,4 @@
-from tiermoe.baseline.compare import (
+from tierahead.baseline.compare import (
     capacity_check, capacity_check_with_kv, kv_hbm_pressure, run_baseline_vs_cxl, run_flagship_report,
 )
 
@@ -144,7 +144,7 @@ def test_run_flagship_report_stacks_every_concurrency_level(data_root):
     assert len(result["combined_policies_df"]) == len(grid) * 3
     assert sorted(result["combined_policies_df"]["concurrency"].unique().tolist()) == grid
     # oracle's TPOT must be the same at every concurrency level (see
-    # tiermoe.sim.validation.gate_oracle_invariant_to_concurrency).
+    # tierahead.sim.validation.gate_oracle_invariant_to_concurrency).
     oracle_tpots = result["combined_policies_df"].loc[
         result["combined_policies_df"].policy == "oracle", "tpot_ms_mean"
     ].unique()

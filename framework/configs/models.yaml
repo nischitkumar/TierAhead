@@ -1,4 +1,4 @@
-# Model architecture constants -- mirrors tiermoe/specs/models.py (the code
+# Model architecture constants -- mirrors tierahead/specs/models.py (the code
 # is the source of truth; this file documents the same numbers for anyone
 # reviewing the framework's assumptions without reading Python).
 models:

@@ -1,4 +1,4 @@
-from tiermoe.tco.pooling import simulate_fleet_demand, stranding_analysis, tco_crossover, tokens_per_sec_per_dollar
+from tierahead.tco.pooling import simulate_fleet_demand, stranding_analysis, tco_crossover, tokens_per_sec_per_dollar
 
 
 def test_simulate_fleet_demand_shape_and_positivity():

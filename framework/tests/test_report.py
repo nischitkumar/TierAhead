@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tiermoe.report.markdown import df_to_markdown_table, preserve_analysis_section, render_report_md
+from tierahead.report.markdown import df_to_markdown_table, preserve_analysis_section, render_report_md
 
 
 def test_df_to_markdown_table_empty():

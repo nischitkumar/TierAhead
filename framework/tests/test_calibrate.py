@@ -3,9 +3,9 @@ import json
 import numpy as np
 import pytest
 
-from tiermoe.calibrate.policy_check import check_policy_ordering
-from tiermoe.calibrate.report import build_calibration_report
-from tiermoe.calibrate.transfer_fit import fit_affine_transfer_curve, fit_from_calib_json
+from tierahead.calibrate.policy_check import check_policy_ordering
+from tierahead.calibrate.report import build_calibration_report
+from tierahead.calibrate.transfer_fit import fit_affine_transfer_curve, fit_from_calib_json
 
 
 def test_fit_affine_transfer_curve_recovers_known_alpha_beta():

@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from tiermoe.analyze.workload import gini, recall_at_m, run_characterization, verdict
+from tierahead.analyze.workload import gini, recall_at_m, run_characterization, verdict
 
 
 def test_gini_zero_for_uniform():

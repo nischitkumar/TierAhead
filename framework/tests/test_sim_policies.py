@@ -1,6 +1,6 @@
-from tiermoe.sim.policies import ALL_POLICIES, _LRUCache, run_concurrency_sweep, run_policy_bakeoff, simulate_policy
-from tiermoe.specs import MODEL_SPECS
-from tiermoe.traces.io import load_traces, train_test_split_reqs
+from tierahead.sim.policies import ALL_POLICIES, _LRUCache, run_concurrency_sweep, run_policy_bakeoff, simulate_policy
+from tierahead.specs import MODEL_SPECS
+from tierahead.traces.io import load_traces, train_test_split_reqs
 
 
 def _splits(trace_dir, seed=0):

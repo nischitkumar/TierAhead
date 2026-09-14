@@ -1,4 +1,4 @@
-from tiermoe.kv.cotenancy import _kv_weight_for_policy, recommend_policy, run_kv_expert_sweep
+from tierahead.kv.cotenancy import _kv_weight_for_policy, recommend_policy, run_kv_expert_sweep
 
 
 def test_kv_weight_for_policy():

@@ -1,4 +1,4 @@
-from tiermoe.eunion import analytic_e_union_uniform, empirical_e_union
+from tierahead.eunion import analytic_e_union_uniform, empirical_e_union
 
 
 def test_analytic_e_union_monotone_in_batch():

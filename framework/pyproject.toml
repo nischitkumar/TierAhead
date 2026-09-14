@@ -1,5 +1,5 @@
 [project]
-name = "tiermoe"
+name = "tierahead"
 version = "0.1.0"
 description = "Router-guided memory tiering for cost-efficient MoE inference on HBM + CXL memory systems"
 requires-python = ">=3.10"
@@ -18,25 +18,25 @@ dependencies = [
 [project.optional-dependencies]
 # Needed only for the trainable predictor (policy.predictor_mlp) and lookahead
 # depth experiments. CPU/MPS wheel on macOS, CUDA wheel on Linux GPU boxes --
-# `pip install tiermoe[predictor]` picks whatever `pip install torch` resolves
+# `pip install tierahead[predictor]` picks whatever `pip install torch` resolves
 # to on the host, same as experiments/e4_predictor and e5_lookahead already do.
 predictor = ["torch>=2.1"]
-# Needed only for `tiermoe dashboard`.
+# Needed only for `tierahead dashboard`.
 dashboard = ["streamlit>=1.30", "plotly>=5.18"]
 # Needed only for real GPU trace collection / calibration (collect, calibrate.*
-# GPU submodules). CUDA-only -- see tiermoe.hw for the capability probe that
+# GPU submodules). CUDA-only -- see tierahead.hw for the capability probe that
 # gates these at runtime.
 gpu = ["torch>=2.1", "transformers>=4.42,<4.47", "accelerate", "bitsandbytes", "datasets", "huggingface_hub<1.0", "sentencepiece"]
 # Parquet output for large sweep tables (optional; CSV fallback always works).
 parquet = ["pyarrow>=14.0"]
 dev = ["pytest>=7.4", "pytest-cov"]
-all = ["tiermoe[predictor,dashboard,parquet,dev]"]
+all = ["tierahead[predictor,dashboard,parquet,dev]"]
 
 [project.scripts]
-tiermoe = "tiermoe.cli:main"
+tierahead = "tierahead.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["tiermoe*"]
+include = ["tierahead*"]
 
 [build-system]
 requires = ["setuptools>=68", "wheel"]

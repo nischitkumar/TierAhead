@@ -1,4 +1,4 @@
-from tiermoe.specs.models import EXPERT_BYTES_FP16_TABLE_MB, MODEL_SPECS
+from tierahead.specs.models import EXPERT_BYTES_FP16_TABLE_MB, MODEL_SPECS
 
 
 def test_expert_bytes_matches_documented_table():

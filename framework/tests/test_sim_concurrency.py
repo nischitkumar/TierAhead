@@ -1,4 +1,4 @@
-"""Locks in the OPEN-LOOP admission-control finding tiermoe/sim/concurrency.py's
+"""Locks in the OPEN-LOOP admission-control finding tierahead/sim/concurrency.py's
 module docstring describes (its "question 2"): for N independent, always-
 emitting periodic traffic sources sharing one link, below the aggregate-
 demand-equals-bandwidth boundary DES contention is negligible (latency stays
@@ -10,7 +10,7 @@ decode sessions), which is a different question with a different (and
 correct, textbook) answer -- see the module docstring's "THE MISTAKE"
 section for why conflating the two was wrong and how it was caught.
 """
-from tiermoe.sim.concurrency import (
+from tierahead.sim.concurrency import (
     aggregate_rho, max_sustainable_concurrency, verify_stability_boundary_with_des,
 )
 

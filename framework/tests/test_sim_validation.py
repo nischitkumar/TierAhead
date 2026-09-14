@@ -1,8 +1,8 @@
 """Runs Experiments.md E6's own validation gates for real against the pilot's
-committed traces -- see tiermoe/sim/validation.py's module docstring and
+committed traces -- see tierahead/sim/validation.py's module docstring and
 PREDICTED.md's Verified section for what these results mean for the report.
 """
-from tiermoe.sim.validation import (
+from tierahead.sim.validation import (
     find_collapse_concurrency, gate_hybrid_never_worse_than_lru_under_concurrency,
     gate_latency_barely_moves_regime, gate_monotone_in_residency,
     gate_oracle_invariant_to_concurrency, gate_oracle_is_upper_bound,

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tiermoe.policy.residency import FixedResidencyPolicy, ilp_upper_bound
+from tierahead.policy.residency import FixedResidencyPolicy, ilp_upper_bound
 
 
 def _counts(rows):
