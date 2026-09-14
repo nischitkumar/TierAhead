@@ -1,0 +1,12 @@
+# torch installed separately in setup.sh via CUDA wheel index
+transformers>=4.42
+accelerate
+datasets
+zstandard
+pandas
+numpy
+scipy
+matplotlib
+sentencepiece
+huggingface_hub
+bitsandbytes   # Mixtral NF4 only; harmless if unused on OLMoE-only boxes

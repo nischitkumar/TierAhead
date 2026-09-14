@@ -1,0 +1,9 @@
+{
+  "n_layers": 16,
+  "n_experts": 64,
+  "mean_entropy": 3.7147551038517403,
+  "max_entropy": 4.158883094787598,
+  "activations_per_layer": 208,
+  "n_records_written": 3328,
+  "elapsed_sec": 1.7899138927459717
+}
