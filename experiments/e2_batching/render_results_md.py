@@ -3,17 +3,12 @@
 end of batching_sweep.py / run_e2.sh -- RESULTS.md is generated output, not
 something to hand-edit (edit this template instead)."""
 import json
-import sys
 from datetime import datetime, timezone
 from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from common.results_md import preserve_analysis_section  # noqa: E402
 
 
 def render(summary_path: Path, out_path: Path):
     summary = json.loads(Path(summary_path).read_text())
-    out_path = Path(out_path)
 
     lines = []
     lines.append("# E2 Results: Batching Sweet Spot")
@@ -100,22 +95,17 @@ def render(summary_path: Path, out_path: Path):
             lines.append(f"- `out/figures/{Path(fig).name}`")
         lines.append("")
 
-    default_analysis = [
-        "*(placeholder -- not yet filled in. Once this section has real analysis, it will be "
-        "preserved verbatim across re-runs instead of being reset to this checklist; only the "
-        "data sections above ever get overwritten.)*",
-        "",
-        "- [ ] Does B* line up with intuition from the pilot's batch-8 erosion check "
-        "(OLMoE's expert union widened 12.5% -> 47% of experts touched per step at B=8)?",
-        "- [ ] Is the claim-check verdict above sensitive to the chosen (residency, bw, "
-        "precision) operating point? Re-run with `--residency-pct`/`--bw-gbps`/`--precision` "
-        "swept to check robustness before quoting it.",
-        "- [ ] How much does batched-target recall degrade vs single-token recall "
-        "(pilot's d1_m2k numbers: OLMoE 0.553, Mixtral 0.618) as B grows?",
-        "- [ ] Cross-reference this B* against E6's later sweep (batch in {1,8,32}) once "
-        "that experiment runs.",
-    ]
-    lines.extend(preserve_analysis_section(out_path, default_analysis))
+    lines.append("## Analysis notes (fill in after reviewing the figures)")
+    lines.append("")
+    lines.append("- [ ] Does B* line up with intuition from the pilot's batch-8 erosion check "
+                 "(OLMoE's expert union widened 12.5% -> 47% of experts touched per step at B=8)?")
+    lines.append("- [ ] Is the claim-check verdict above sensitive to the chosen (residency, bw, "
+                 "precision) operating point? Re-run with `--residency-pct`/`--bw-gbps`/`--precision` "
+                 "swept to check robustness before quoting it.")
+    lines.append("- [ ] How much does batched-target recall degrade vs single-token recall "
+                 "(pilot's d1_m2k numbers: OLMoE 0.553, Mixtral 0.618) as B grows?")
+    lines.append("- [ ] Cross-reference this B* against E6's later sweep (batch in {1,8,32}) once "
+                 "that experiment runs.")
     lines.append("")
 
     out_path.write_text("\n".join(lines))

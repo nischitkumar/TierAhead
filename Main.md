@@ -24,7 +24,7 @@
 >
 > We traced router decisions for 250 real chat and code requests through two MoE architectures spanning the granularity spectrum — OLMoE-1B-7B (64 experts/layer, top-8) and Mixtral-8x7B (8 experts/layer, top-2) — with a request-level train/test split. Two findings reshape the design. First, **static expert placement does not generalize**: the top 25% of experts serve 52.2% of held-out decode activations in OLMoE but only 28.7% in Mixtral (Gini 0.378 vs 0.066), inverting the intuition that coarser experts are more skewed — an effect we attribute to the load-balancing auxiliary loss binding far more tightly over 8 slots than over 64. Second, **router-guided prefetch does generalize**: a training-free conditional predictor recalls 55.3% (OLMoE) and 61.8% (Mixtral) of non-resident next-layer experts one layer ahead, beating a static-popularity baseline by 14–25 points and bounding 72.8–78.7% of expert traffic as non-stalling.
 >
-> We therefore propose **tierMoE**, a prefetch-primary tiering framework for HBM+CXL MoE inference. Its core contribution is the **MoE Tiering Roofline**: because prefetching hides latency but does not reduce bytes moved, whether CXL is viable is set by arithmetic intensity per expert byte — a function of expert granularity and batch size — not by prediction accuracy. We map that boundary analytically and in a trace-driven simulator calibrated against measured GPU compute and PCIe transfer times plus published CXL timings, and we introduce **confidence-gated precision fallback**, which fetches low-confidence predicted experts at 4-bit so that mispredictions cost bounded quality rather than multi-millisecond stalls. We evaluate expert and KV-cache co-tenancy on a shared link, model multi-tenant CXL pooling, and report tokens/sec/$ and stranding reduction, concluding with provisioning recommendations for CXL memory-controller deployments.
+> We therefore propose **TierAhead**, a prefetch-primary tiering framework for HBM+CXL MoE inference. Its core contribution is the **MoE Tiering Roofline**: because prefetching hides latency but does not reduce bytes moved, whether CXL is viable is set by arithmetic intensity per expert byte — a function of expert granularity and batch size — not by prediction accuracy. We map that boundary analytically and in a trace-driven simulator calibrated against measured GPU compute and PCIe transfer times plus published CXL timings, and we introduce **confidence-gated precision fallback**, which fetches low-confidence predicted experts at 4-bit so that mispredictions cost bounded quality rather than multi-millisecond stalls. We evaluate expert and KV-cache co-tenancy on a shared link, model multi-tenant CXL pooling, and report tokens/sec/$ and stranding reduction, concluding with provisioning recommendations for CXL memory-controller deployments.
 
 ### 1.2 Extended framing (for the report introduction)
 
@@ -129,11 +129,11 @@ Any of H-A–H-E failing is reportable as a bounded negative result, as the pilo
 
 ## 4. Framework Architecture (what you are actually building)
 
-The deliverable is a Python framework called **`tierMoE`**, with eight components **[v2: placement optimizer demoted to [3]; roofline [0] and precision gate [4b] added]**. Everything except the optional hardware harnesses runs on a laptop.
+The deliverable is a Python framework called **`TierAhead`**, with eight components **[v2: placement optimizer demoted to [3]; roofline [0] and precision gate [4b] added]**. Everything except the optional hardware harnesses runs on a laptop.
 
 ```
                         ┌───────────────────────────────────────────┐
-                        │                 tierMoE  (v2)                │
+                        │                 TierAhead  (v2)                │
   HuggingFace MoE ────► │ [1] Trace Collector  ──► traces/*.jsonl.zst │
   models (CUDA)         │        │                                    │
                         │        ▼                                    │
@@ -345,10 +345,10 @@ QEMU ≥ 7.1 emulates CXL Type-3 memory devices. Boot a Linux 6.x guest with a `
 ### 7.1 Repository structure
 
 ```
-tiermoe/
+tierahead/
 ├── README.md            # 90-second pitch + reproduce-everything instructions
 ├── pyproject.toml       # locked deps (uv)
-├── tiermoe/
+├── tierahead/
 │   ├── collect/         # hooks, runners (cuda / mps / cpu)
 │   ├── analyze/         # characterization
 │   ├── place/           # greedy, ILP, migration
@@ -367,11 +367,11 @@ tiermoe/
 
 ### 7.2 Final report outline (IEEE two-column, 10–14 pp — write it at the standard you review at)
 
-1. Abstract · 2. Introduction (memory wall → MoE sparsity → CXL tier → **the prefetch-vs-bandwidth reframe** → thesis) · 3. Background & Related Work (§2 condensed; explicit delta vs arXiv:2512.04476, HOBBIT, fMoE, Pre-gated MoE) · 4. **MoE Routing Characterization** (pilot results R1–R4, incl. the skew-inversion finding and why load-balancing loss explains it; E11 extension) · 5. **The MoE Tiering Roofline** (E1, E2 — the paper's conceptual contribution) · 6. tierMoE Design (fixed residency, prefetch engine, precision gating) · 7. Methodology & Validity (calibration ladder, parameter-provenance table, PCIe/QEMU validation, limitations stated plainly) · 8. Evaluation (RQ-by-RQ; headline stall-vs-residency figure; policy bake-off; Pareto) · 9. KV-Cache Co-Tenancy (E8) · 10. CXL Pooling & TCO (E9) · 11. Ablations & Sensitivity (E12) · 12. **Architecture Recommendations for CXL Memory-Controller Deployments** (provisioning table: GB/s and residency % per model class and batch; where near-data processing would and would not help) — *this section is the internship pitch in writing* · 13. Limitations & Future Work · 14. Conclusion · References.
+1. Abstract · 2. Introduction (memory wall → MoE sparsity → CXL tier → **the prefetch-vs-bandwidth reframe** → thesis) · 3. Background & Related Work (§2 condensed; explicit delta vs arXiv:2512.04476, HOBBIT, fMoE, Pre-gated MoE) · 4. **MoE Routing Characterization** (pilot results R1–R4, incl. the skew-inversion finding and why load-balancing loss explains it; E11 extension) · 5. **The MoE Tiering Roofline** (E1, E2 — the paper's conceptual contribution) · 6. TierAhead Design (fixed residency, prefetch engine, precision gating) · 7. Methodology & Validity (calibration ladder, parameter-provenance table, PCIe/QEMU validation, limitations stated plainly) · 8. Evaluation (RQ-by-RQ; headline stall-vs-residency figure; policy bake-off; Pareto) · 9. KV-Cache Co-Tenancy (E8) · 10. CXL Pooling & TCO (E9) · 11. Ablations & Sensitivity (E12) · 12. **Architecture Recommendations for CXL Memory-Controller Deployments** (provisioning table: GB/s and residency % per model class and batch; where near-data processing would and would not help) — *this section is the internship pitch in writing* · 13. Limitations & Future Work · 14. Conclusion · References.
 
 ### 7.3 Slide deck (≤12)
 
-1 Title/team → 2 The MoE memory wall (87 GB vs 80 GB, one picture) → 3 Why CXL is the right tier (and why host-DRAM copy isn't) → 4 Insight A: *the router tells you the future* (pilot numbers: 55–62% recall, +14–25 pp over popularity) → 5 **Insight B: prefetch hides latency, it doesn't create bandwidth** — the 22 ms vs 0.2 ms slide; *this is the slide no other team will have* → 6 The roofline + where each model class lands → 7 Characterization incl. skew inversion → 8 tierMoE design (residency + prefetch + precision gate) → 9 Headline result (stall rate & TPOT vs residency, oracle gap closed) → 10 Validation (PCIe measured ordering + QEMU CXL stack) → 11 Economics + **live demo (roofline explorer)** → 12 Provisioning recommendations for CXL controller deployments + "what we'd do with real Astera hardware" (the internship slide).
+1 Title/team → 2 The MoE memory wall (87 GB vs 80 GB, one picture) → 3 Why CXL is the right tier (and why host-DRAM copy isn't) → 4 Insight A: *the router tells you the future* (pilot numbers: 55–62% recall, +14–25 pp over popularity) → 5 **Insight B: prefetch hides latency, it doesn't create bandwidth** — the 22 ms vs 0.2 ms slide; *this is the slide no other team will have* → 6 The roofline + where each model class lands → 7 Characterization incl. skew inversion → 8 TierAhead design (residency + prefetch + precision gate) → 9 Headline result (stall rate & TPOT vs residency, oracle gap closed) → 10 Validation (PCIe measured ordering + QEMU CXL stack) → 11 Economics + **live demo (roofline explorer)** → 12 Provisioning recommendations for CXL controller deployments + "what we'd do with real Astera hardware" (the internship slide).
 
 ### 7.4 Demo script (3 min)
 

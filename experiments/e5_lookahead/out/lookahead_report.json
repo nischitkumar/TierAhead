@@ -1,0 +1,580 @@
+{
+  "models": [
+    "olmoe",
+    "mixtral"
+  ],
+  "d_values": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "hidden_dim": 512,
+  "epochs": 60,
+  "seed": 0,
+  "fetch_batch": 1,
+  "precision": "fp16",
+  "queue_depths": [
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "per_model": {
+    "olmoe": {
+      "n_layers": 16,
+      "n_experts": 64,
+      "k": 8,
+      "direct_recall_by_d": {
+        "1": 0.5389093478945015,
+        "2": 0.5239619140765458,
+        "4": 0.48693756081623374,
+        "8": 0.43945718500637027
+      },
+      "direct_layers_used": {
+        "1": 15,
+        "2": 14,
+        "4": 12,
+        "8": 8
+      },
+      "chained_recall_by_d": {
+        "1": 0.5199054775536796,
+        "2": 0.4475515507165082,
+        "4": 0.3699317437656702,
+        "8": 0.2693413464762288
+      },
+      "max_useful_depth": null,
+      "recall_threshold": 0.6,
+      "feasible_fetch": [
+        {
+          "d": 1,
+          "bw_gbps": 16,
+          "bytes_fetchable": 910980.0542986426,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 1,
+          "bw_gbps": 32,
+          "bytes_fetchable": 1821960.108597285,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 1,
+          "bw_gbps": 64,
+          "bytes_fetchable": 3643920.21719457,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 1,
+          "bw_gbps": 128,
+          "bytes_fetchable": 7287840.43438914,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 2,
+          "bw_gbps": 16,
+          "bytes_fetchable": 1821960.108597285,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 2,
+          "bw_gbps": 32,
+          "bytes_fetchable": 3643920.21719457,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 2,
+          "bw_gbps": 64,
+          "bytes_fetchable": 7287840.43438914,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 2,
+          "bw_gbps": 128,
+          "bytes_fetchable": 14575680.86877828,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 4,
+          "bw_gbps": 16,
+          "bytes_fetchable": 3643920.21719457,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 4,
+          "bw_gbps": 32,
+          "bytes_fetchable": 7287840.43438914,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 4,
+          "bw_gbps": 64,
+          "bytes_fetchable": 14575680.86877828,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 4,
+          "bw_gbps": 128,
+          "bytes_fetchable": 29151361.73755656,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 8,
+          "bw_gbps": 16,
+          "bytes_fetchable": 7287840.43438914,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 8,
+          "bw_gbps": 32,
+          "bytes_fetchable": 14575680.86877828,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 8,
+          "bw_gbps": 64,
+          "bytes_fetchable": 29151361.73755656,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        },
+        {
+          "d": 8,
+          "bw_gbps": 128,
+          "bytes_fetchable": 58302723.47511312,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 12582912.0
+        }
+      ],
+      "queue_sim": {
+        "t_layer_ms": 0.05693625339366516,
+        "compute_provenance": "flop_estimate",
+        "expert_total_bytes_worstcase": 100663296.0,
+        "by_bw": {
+          "16": {
+            "1": {
+              "rho": 110.5,
+              "mean_occupancy": 1.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9909502262443439
+            },
+            "2": {
+              "rho": 110.5,
+              "mean_occupancy": 2.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9909502262443439
+            },
+            "4": {
+              "rho": 110.5,
+              "mean_occupancy": 4.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9909502262443439
+            },
+            "8": {
+              "rho": 110.5,
+              "mean_occupancy": 8.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9909502262443439
+            },
+            "16": {
+              "rho": 110.5,
+              "mean_occupancy": 16.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9909502262443439
+            }
+          },
+          "32": {
+            "1": {
+              "rho": 55.25,
+              "mean_occupancy": 1.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9819004524886877
+            },
+            "2": {
+              "rho": 55.25,
+              "mean_occupancy": 2.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9819004524886877
+            },
+            "4": {
+              "rho": 55.25,
+              "mean_occupancy": 4.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9819004524886877
+            },
+            "8": {
+              "rho": 55.25,
+              "mean_occupancy": 8.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9819004524886877
+            },
+            "16": {
+              "rho": 55.25,
+              "mean_occupancy": 16.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9819004524886877
+            }
+          },
+          "64": {
+            "1": {
+              "rho": 27.625,
+              "mean_occupancy": 1.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9638009049773756
+            },
+            "2": {
+              "rho": 27.625,
+              "mean_occupancy": 2.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9638009049773756
+            },
+            "4": {
+              "rho": 27.625,
+              "mean_occupancy": 4.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9638009049773756
+            },
+            "8": {
+              "rho": 27.625,
+              "mean_occupancy": 8.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9638009049773756
+            },
+            "16": {
+              "rho": 27.625,
+              "mean_occupancy": 16.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9638009049773756
+            }
+          },
+          "128": {
+            "1": {
+              "rho": 13.8125,
+              "mean_occupancy": 1.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9276018099547512
+            },
+            "2": {
+              "rho": 13.8125,
+              "mean_occupancy": 2.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9276018099547512
+            },
+            "4": {
+              "rho": 13.8125,
+              "mean_occupancy": 4.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9276018099547512
+            },
+            "8": {
+              "rho": 13.8125,
+              "mean_occupancy": 8.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9276018099547512
+            },
+            "16": {
+              "rho": 13.8125,
+              "mean_occupancy": 16.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9276018099547512
+            }
+          }
+        }
+      }
+    },
+    "mixtral": {
+      "n_layers": 32,
+      "n_experts": 8,
+      "k": 2,
+      "direct_recall_by_d": {
+        "1": 0.4106102131066551,
+        "2": 0.4007014709868723,
+        "4": 0.3868303478720059,
+        "8": 0.37181186397748917
+      },
+      "direct_layers_used": {
+        "1": 31,
+        "2": 30,
+        "4": 28,
+        "8": 24
+      },
+      "chained_recall_by_d": {
+        "1": 0.4029546005304571,
+        "2": 0.3479044384083026,
+        "4": 0.295533971365678,
+        "8": 0.2719409333939358
+      },
+      "max_useful_depth": null,
+      "recall_threshold": 0.6,
+      "feasible_fetch": [
+        {
+          "d": 1,
+          "bw_gbps": 16,
+          "bytes_fetchable": 6376860.380090498,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 1,
+          "bw_gbps": 32,
+          "bytes_fetchable": 12753720.760180997,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 1,
+          "bw_gbps": 64,
+          "bytes_fetchable": 25507441.520361993,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 1,
+          "bw_gbps": 128,
+          "bytes_fetchable": 51014883.04072399,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 2,
+          "bw_gbps": 16,
+          "bytes_fetchable": 12753720.760180997,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 2,
+          "bw_gbps": 32,
+          "bytes_fetchable": 25507441.520361993,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 2,
+          "bw_gbps": 64,
+          "bytes_fetchable": 51014883.04072399,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 2,
+          "bw_gbps": 128,
+          "bytes_fetchable": 102029766.08144797,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 4,
+          "bw_gbps": 16,
+          "bytes_fetchable": 25507441.520361993,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 4,
+          "bw_gbps": 32,
+          "bytes_fetchable": 51014883.04072399,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 4,
+          "bw_gbps": 64,
+          "bytes_fetchable": 102029766.08144797,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 4,
+          "bw_gbps": 128,
+          "bytes_fetchable": 204059532.16289595,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 8,
+          "bw_gbps": 16,
+          "bytes_fetchable": 51014883.04072399,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 8,
+          "bw_gbps": 32,
+          "bytes_fetchable": 102029766.08144797,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 8,
+          "bw_gbps": 64,
+          "bytes_fetchable": 204059532.16289595,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        },
+        {
+          "d": 8,
+          "bw_gbps": 128,
+          "bytes_fetchable": 408119064.3257919,
+          "compute_provenance": "flop_estimate",
+          "expert_bytes": 352321536.0
+        }
+      ],
+      "queue_sim": {
+        "t_layer_ms": 0.39855377375565615,
+        "compute_provenance": "flop_estimate",
+        "expert_total_bytes_worstcase": 704643072.0,
+        "by_bw": {
+          "16": {
+            "1": {
+              "rho": 110.49999999999999,
+              "mean_occupancy": 1.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9909502262443439
+            },
+            "2": {
+              "rho": 110.49999999999999,
+              "mean_occupancy": 2.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9909502262443439
+            },
+            "4": {
+              "rho": 110.49999999999999,
+              "mean_occupancy": 4.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9909502262443439
+            },
+            "8": {
+              "rho": 110.49999999999999,
+              "mean_occupancy": 8.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9909502262443439
+            },
+            "16": {
+              "rho": 110.49999999999999,
+              "mean_occupancy": 16.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9909502262443439
+            }
+          },
+          "32": {
+            "1": {
+              "rho": 55.24999999999999,
+              "mean_occupancy": 1.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9819004524886877
+            },
+            "2": {
+              "rho": 55.24999999999999,
+              "mean_occupancy": 2.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9819004524886877
+            },
+            "4": {
+              "rho": 55.24999999999999,
+              "mean_occupancy": 4.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9819004524886877
+            },
+            "8": {
+              "rho": 55.24999999999999,
+              "mean_occupancy": 8.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9819004524886877
+            },
+            "16": {
+              "rho": 55.24999999999999,
+              "mean_occupancy": 16.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9819004524886877
+            }
+          },
+          "64": {
+            "1": {
+              "rho": 27.624999999999996,
+              "mean_occupancy": 1.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9638009049773756
+            },
+            "2": {
+              "rho": 27.624999999999996,
+              "mean_occupancy": 2.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9638009049773756
+            },
+            "4": {
+              "rho": 27.624999999999996,
+              "mean_occupancy": 4.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9638009049773756
+            },
+            "8": {
+              "rho": 27.624999999999996,
+              "mean_occupancy": 8.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9638009049773756
+            },
+            "16": {
+              "rho": 27.624999999999996,
+              "mean_occupancy": 16.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9638009049773756
+            }
+          },
+          "128": {
+            "1": {
+              "rho": 13.812499999999998,
+              "mean_occupancy": 1.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9276018099547512
+            },
+            "2": {
+              "rho": 13.812499999999998,
+              "mean_occupancy": 2.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9276018099547512
+            },
+            "4": {
+              "rho": 13.812499999999998,
+              "mean_occupancy": 4.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9276018099547512
+            },
+            "8": {
+              "rho": 13.812499999999998,
+              "mean_occupancy": 8.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9276018099547512
+            },
+            "16": {
+              "rho": 13.812499999999998,
+              "mean_occupancy": 16.0,
+              "link_utilization": 1.0,
+              "drop_rate": 0.9276018099547512
+            }
+          }
+        }
+      }
+    }
+  },
+  "figures": [
+    "experiments/e5_lookahead/out/figures/recall_vs_depth_olmoe.pdf",
+    "experiments/e5_lookahead/out/figures/feasible_fetch_size_olmoe.pdf",
+    "experiments/e5_lookahead/out/figures/recall_vs_depth_mixtral.pdf",
+    "experiments/e5_lookahead/out/figures/feasible_fetch_size_mixtral.pdf"
+  ]
+}

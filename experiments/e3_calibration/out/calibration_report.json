@@ -1,0 +1,28 @@
+{
+  "provenance_table": [
+    {
+      "parameter": "compute",
+      "status": "MISSING (run the GPU script to produce experiments/e1_roofline/out/calib_compute.json)",
+      "detail": "run e1_roofline/measure_compute.py, or point --compute-calib-path at its output"
+    },
+    {
+      "parameter": "transfer (alpha/beta)",
+      "status": "MISSING (run the GPU script to produce experiments/e3_calibration/out/calib_transfer.json)",
+      "detail": "run measure_transfer.py"
+    },
+    {
+      "parameter": "e2e offload policy ordering",
+      "status": "MISSING (run the GPU script to produce experiments/e3_calibration/out/calib_e2e.json)",
+      "detail": "run e2e_offload_runner.py"
+    },
+    {
+      "parameter": "nf4 routing fidelity (olmoe)",
+      "status": "MISSING (run the GPU script to produce experiments/e3_calibration/out/calib_nf4_fidelity.json)",
+      "detail": "run nf4_fidelity.py"
+    }
+  ],
+  "transfer_fit": null,
+  "policy_ordering_check": null,
+  "nf4_fidelity": null,
+  "figures": []
+}

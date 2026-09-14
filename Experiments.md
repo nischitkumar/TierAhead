@@ -1,4 +1,4 @@
-# tierMoE Experiment Roadmap (post-pilot, v2)
+# TierAhead Experiment Roadmap (post-pilot, v2)
 
 **Status:** ELP-Probe complete → verdict **GO, prefetch-led**. This document is the full experiment program from Aug 14 → Sept 25, with per-experiment rationale, method, deliverables, exit criteria, effort, and learning resources.
 
@@ -71,7 +71,7 @@ Priority tags: **[P0]** = project fails without it · **[P1]** = needed for firs
 5. Overlay the *achievable* operating points given measured Coverage@C from the pilot — i.e., which points are reachable with a real residency policy rather than an assumed one.
 
 **Deliverables.**
-- `tiermoe/roofline/` module + `figures/roofline_{model}.pdf` — **the report's Figure 1**.
+- `tierahead/roofline/` module + `figures/roofline_{model}.pdf` — **the report's Figure 1**.
 - A one-page "provisioning table": for each model class, minimum GB/s per accelerator and minimum residency % to keep ρ<1 at batch {1,8,32}.
 - `roofline_summary.json` consumed by E6 and the dashboard.
 
@@ -148,7 +148,7 @@ Priority tags: **[P0]** = project fails without it · **[P1]** = needed for firs
 4. **Calibration**: reliability diagram + Expected Calibration Error for the predictor's per-expert probability. Apply temperature scaling if ECE is poor.
 5. **Cross-domain transfer**: fit on chat, test on code, and vice versa (the pilot planned this; make sure it lands). Transfer ⇒ the predictor learns model structure, not dataset quirks.
 
-**Deliverables.** `tiermoe/policy/predictor_v2.py`; `figures/recall_vs_bytes.pdf` (the operating-point figure); `figures/reliability.pdf`; ablation table; `predictor_report.json`.
+**Deliverables.** `tierahead/policy/predictor_v2.py`; `figures/recall_vs_bytes.pdf` (the operating-point figure); `figures/reliability.pdf`; ablation table; `predictor_report.json`.
 
 **Exit criteria.** Either recall@m=k improved ≥8 pp over the frequency table (⇒ MLP earns its place), or it did not (⇒ report the negative result, keep the frequency table, and note that the router's *selected set* already carries nearly all the available signal — also a clean finding).
 
@@ -211,7 +211,7 @@ Metrics: TPOT mean/p50/p99, demand-stall rate (the pilot's headline metric — k
 
 **Validation gates (run these as unit tests):** oracle ≥ every policy; zero-latency+infinite-BW CXL ⇒ parity with HBM-only; monotone improvement in r; simulated PCIe configuration reproduces E3's *measured* ordering within ±15% on relative deltas.
 
-**Deliverables.** `tiermoe/sim/`; `results/sweep.parquet`; **`figures/headline_stall_vs_residency.pdf`**; `figures/policy_bakeoff.pdf`; validation table comparing simulated vs measured PCIe runs.
+**Deliverables.** `tierahead/sim/`; `results/sweep.parquet`; **`figures/headline_stall_vs_residency.pdf`**; `figures/policy_bakeoff.pdf`; validation table comparing simulated vs measured PCIe runs.
 
 **Exit criteria.** A defensible statement of the form: *"at residency r on a BW GB/s link at batch B, router-guided prefetch reduces demand stalls from X% to Y% and TPOT by Z%, closing W% of the oracle gap."*
 
@@ -238,7 +238,7 @@ This converts prediction error from a *latency* penalty into a *quality* penalty
 3. **Quality evaluation** — the part that makes this credible: run real inference where low-confidence experts are substituted with their NF4 versions according to the policy's decisions replayed from traces, and measure perplexity on WikiText-2 plus task accuracy on a small benchmark slice (e.g., 200 GSM8K or HumanEval items). Report ΔPPL and Δaccuracy vs bytes saved.
 4. Pareto frontier: bytes/token vs quality vs TPOT. Identify knee points.
 
-**Deliverables.** `tiermoe/policy/precision_gate.py`; `figures/pareto_bytes_quality_latency.pdf`; a quality table (ΔPPL, Δacc) at each operating point; the report's contribution section.
+**Deliverables.** `tierahead/policy/precision_gate.py`; `figures/pareto_bytes_quality_latency.pdf`; a quality table (ΔPPL, Δacc) at each operating point; the report's contribution section.
 
 **Exit criteria.** A configuration exists where bytes/token drop ≥30% with ΔPPL ≤ ~0.1 and no material accuracy loss. If quality degrades unacceptably, report the frontier anyway — a negative result with a Pareto curve is still a result, and the framing ("we bounded the achievable trade-off") holds.
 
@@ -284,7 +284,7 @@ This converts prediction error from a *latency* penalty into a *quality* penalty
 
 **Method.** Follow Pond's stranding logic: fleet of N hosts serving a mix of MoE models with time-varying demand (derive per-model memory footprints from your traces and E1's residency requirements); compare per-host provisioning at p99 vs pooled provisioning at fleet p99; sweep HBM:DDR:CXL cost ratios 2–5× to show conclusions are robust to price assumptions. Headline metric: **tokens/sec per $ of memory at iso-p99-TPOT**, plus stranded-capacity reduction %.
 
-**Deliverables.** `tiermoe/tco/` notebook; `figures/tco_curves.pdf`; `figures/stranding.pdf`; the report's economics section and the presentation's slide 10.
+**Deliverables.** `tierahead/tco/` notebook; `figures/tco_curves.pdf`; `figures/stranding.pdf`; the report's economics section and the presentation's slide 10.
 
 **Exit criteria.** A crossover point identified: the model size / traffic profile beyond which HBM+CXL beats HBM-only on tokens/sec/$.
 

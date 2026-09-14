@@ -21,6 +21,7 @@ from analyze import (  # noqa: E402
     expert_counts,
     build_transition_tables,
     bootstrap_ci,
+    recall_at_m,
 )
 
 __all__ = [
@@ -32,6 +33,7 @@ __all__ = [
     "expert_counts",
     "build_transition_tables",
     "bootstrap_ci",
+    "recall_at_m",
 ]
 
 

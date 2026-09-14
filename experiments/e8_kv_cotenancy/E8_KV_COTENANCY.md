@@ -25,7 +25,7 @@ running memory of every token's attention keys and values, for every in-flight r
 is the *other* thing that grows without bound and doesn't fit in HBM once context length
 gets long. In fact, Astera's own public material about CXL for LLM inference (see
 Experiments.md E8's resource list) is framed almost entirely around KV cache, not
-experts. A tierMoE report that only ever talks about experts is answering half of the
+experts. A TierAhead report that only ever talks about experts is answering half of the
 question a memory-controller company actually cares about.
 
 The interesting part isn't "KV cache can also live on CXL" (obvious, and already covered

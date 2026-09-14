@@ -2,7 +2,7 @@
 """E8 -- KV-cache co-tenancy on the CXL link (Experiments.md E8, [P2]).
 
 Astera's own published CXL-for-inference story is about the KV cache, not
-experts. This experiment shows the tierMoE framework handles both traffic
+experts. This experiment shows the TierAhead framework handles both traffic
 classes, and -- the part that makes it more than a footnote -- that they
 CONTEND for the same physical link when a long-context request's KV cache
 has to live on CXL (doesn't fit in HBM) at the same time expert weights are

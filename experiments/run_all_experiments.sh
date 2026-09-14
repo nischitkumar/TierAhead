@@ -28,7 +28,7 @@ SKIP_CALIB="${SKIP_CALIB:-0}"
 SKIP_TESTS="${SKIP_TESTS:-0}"
 
 echo "############################################################"
-echo "# tierMoE E1+E2 pipeline"
+echo "# TierAhead E1+E2 pipeline"
 echo "# repo:  $REPO_ROOT"
 echo "# venv:  $VENV_DIR"
 echo "############################################################"

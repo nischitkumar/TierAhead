@@ -270,4 +270,4 @@ OLMoE-1B-7B FP16 runs on a 24 GB+ Apple-Silicon Mac via MPS (slow decode, ~irrel
 
 ## 8. What happens to this work afterwards (nothing is throwaway)
 
-The collector *is* Phase-1 component [1] of tierMoE; the transition tables *are* the `next-layer-topk` policy's input; the analysis figures *are* the report's characterization section; `pilot_summary.json` seeds the simulator's workload priors. The pilot is not a detour — it is Phase 1 started early, scoped to the decision-critical subset.
+The collector *is* Phase-1 component [1] of TierAhead; the transition tables *are* the `next-layer-topk` policy's input; the analysis figures *are* the report's characterization section; `pilot_summary.json` seeds the simulator's workload priors. The pilot is not a detour — it is Phase 1 started early, scoped to the decision-critical subset.

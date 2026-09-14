@@ -4,17 +4,12 @@ end of roofline.py / run_e1.sh -- RESULTS.md in this directory is therefore
 generated output, not something to hand-edit (edit this template instead)."""
 import json
 import math
-import sys
 from datetime import datetime, timezone
 from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from common.results_md import preserve_analysis_section  # noqa: E402
 
 
 def render(summary_path: Path, out_path: Path):
     summary = json.loads(Path(summary_path).read_text())
-    out_path = Path(out_path)
 
     lines = []
     lines.append("# E1 Results: The MoE Tiering Roofline")
@@ -107,22 +102,17 @@ def render(summary_path: Path, out_path: Path):
         lines.append(f"- `out/figures/{rel}`")
     lines.append("")
 
-    default_analysis = [
-        "*(placeholder -- not yet filled in. Once this section has real analysis, it will be "
-        "preserved verbatim across re-runs instead of being reset to this checklist; only the "
-        "data sections above ever get overwritten.)*",
-        "",
-        "- [ ] Does the rho=1 boundary land where Experiments.md predicted "
-        "(\"fine-grained MoE, expert <=~30MB, at batch>=8, >=50% residency, "
-        ">=64GB/s\")?",
-        "- [ ] Do OLMoE and Mixtral anchor opposite sides of the boundary, as the "
-        "reframing in Experiments.md §0 claims?",
-        "- [ ] Which (model, precision) combinations require E7's byte-reduction "
-        "mechanism outright (never reach rho<1 in the swept grid)?",
-        "- [ ] Any surprises vs the FLOP-estimate assumption once measure_compute.py's "
-        "real numbers are in?",
-    ]
-    lines.extend(preserve_analysis_section(out_path, default_analysis))
+    lines.append("## Analysis notes (fill in after reviewing the figures)")
+    lines.append("")
+    lines.append("- [ ] Does the rho=1 boundary land where Experiments.md predicted "
+                 "(\"fine-grained MoE, expert <=~30MB, at batch>=8, >=50% residency, "
+                 ">=64GB/s\")?")
+    lines.append("- [ ] Do OLMoE and Mixtral anchor opposite sides of the boundary, as the "
+                 "reframing in Experiments.md §0 claims?")
+    lines.append("- [ ] Which (model, precision) combinations require E7's byte-reduction "
+                 "mechanism outright (never reach rho<1 in the swept grid)?")
+    lines.append("- [ ] Any surprises vs the FLOP-estimate assumption once measure_compute.py's "
+                 "real numbers are in?")
     lines.append("")
 
     out_path.write_text("\n".join(lines))

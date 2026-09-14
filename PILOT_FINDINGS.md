@@ -1,4 +1,4 @@
-# ELP-Probe Pilot: What We Found and What It Means for tierMoE
+# ELP-Probe Pilot: What We Found and What It Means for TierAhead
 
 Companion doc to `Pilot.md` (the experiment design) and the raw output in `results/`. This file is the human-readable "so what" layer: what we measured, what it means, what's shaky about it, and how it should change the plan going forward. If you only read one section, read "The one-sentence version" and "What this changes about the system."
 

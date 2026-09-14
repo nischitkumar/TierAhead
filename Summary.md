@@ -1,4 +1,4 @@
-# tierMoE — Project Status & Deep Dive
+# TierAhead — Project Status & Deep Dive
 
 Let me build this up from first principles, since the pilot result only makes sense once you see the shape of the underlying problem.
 
@@ -10,7 +10,7 @@ Let me build this up from first principles, since the pilot result only makes se
 
 **The project's actual bet:** if you treat CXL as a second, larger, slower memory tier underneath HBM, and you're smart about *which* expert weights live where and *when* you fetch them, you can serve models way bigger than HBM would normally allow — without constantly stalling the GPU waiting for data. "Smart" here specifically means exploiting the fact that the MoE router's own decisions are a signal: the gate at layer *l* tells you something about what's likely to be needed at layer *l+1*, before you actually need it.
 
-That system is called **tierMoE**, and it's your entry for the Astera Labs "CXL-Based Memory Optimization for MoE Models" track at Nebula@BITS Goa 2026.
+That system is called **TierAhead**, and it's your entry for the Astera Labs "CXL-Based Memory Optimization for MoE Models" track at Nebula@BITS Goa 2026.
 
 ## 2. Where the project stands right now (Aug 31, 2026)
 
@@ -22,7 +22,7 @@ That system is called **tierMoE**, and it's your entry for the Astera Labs "CXL-
 
 ## 3. What the pilot (ELP-Probe) actually tested, and why
 
-Before building any of the eight tierMoE components, you needed to answer one falsifiable question: **is MoE expert traffic structured enough to be worth tiering at all?** Everything else — the placement optimizer, the prefetcher, the simulator — is engineering that only pays off if the answer is yes. So the pilot deliberately measured *properties of the workload*, not performance of any system you'd built yet (because no system existed yet).
+Before building any of the eight TierAhead components, you needed to answer one falsifiable question: **is MoE expert traffic structured enough to be worth tiering at all?** Everything else — the placement optimizer, the prefetcher, the simulator — is engineering that only pays off if the answer is yes. So the pilot deliberately measured *properties of the workload*, not performance of any system you'd built yet (because no system existed yet).
 
 Two real models were traced — **OLMoE-1B-7B** (64 experts/layer, top-8: the "fine-grained" end) and **Mixtral-8x7B** (8 experts/layer, top-2: the "coarse-grained" end) — over 250 real chat and code requests, logging every router decision at every layer. Requests were split 70/30 train/test so nothing was measured on data the statistics were fit to (avoiding leakage).
 

@@ -1,0 +1,538 @@
+{
+  "models": [
+    "olmoe",
+    "mixtral"
+  ],
+  "variants": [
+    "ids",
+    "ids_gate",
+    "ids_gate_entropy",
+    "ids_gate_entropy_hidden"
+  ],
+  "hidden_dim": 512,
+  "epochs": 60,
+  "device": "cpu",
+  "seed": 0,
+  "c_nonresident_pct": 25.0,
+  "per_model": {
+    "olmoe": {
+      "n_layers": 16,
+      "n_experts": 64,
+      "k": 8,
+      "n_train_reqs": 175,
+      "n_test_reqs": 75,
+      "ablation_table": [
+        {
+          "variant": "ids",
+          "d": 1,
+          "m": 8,
+          "recall_overall": 0.6762272850556008,
+          "recall_nonresident": 0.5199054775536796,
+          "n_layers_used": 15,
+          "feature_dim": 64,
+          "param_count": 66112
+        },
+        {
+          "variant": "ids_gate",
+          "d": 1,
+          "m": 8,
+          "recall_overall": 0.6899913417203897,
+          "recall_nonresident": 0.5369747296006537,
+          "n_layers_used": 15,
+          "feature_dim": 64,
+          "param_count": 66112
+        },
+        {
+          "variant": "ids_gate_entropy",
+          "d": 1,
+          "m": 8,
+          "recall_overall": 0.6911988066178465,
+          "recall_nonresident": 0.5389093478945015,
+          "n_layers_used": 15,
+          "feature_dim": 65,
+          "param_count": 66624
+        }
+      ],
+      "skipped_variants": [
+        "ids_gate_entropy_hidden"
+      ],
+      "baseline_frequency_table": {
+        "d": 1,
+        "m": 8,
+        "recall_overall": 0.5485578227034695,
+        "recall_nonresident": 0.21984640102472933,
+        "baseline_static_popularity": 0.35655108384970063,
+        "baseline_random": 0.125
+      },
+      "winning_variant": "ids_gate_entropy",
+      "pp_gain_over_baseline": 31.906294686977223,
+      "verdict": "MLP EARNS ITS PLACE: ids_gate_entropy beats the frequency table by +31.9pp recall@m=k,nonresident (>= the 8pp exit-criteria bar).",
+      "recall_vs_bytes": [
+        {
+          "m": 8,
+          "bytes_per_layer": 100663296.0,
+          "recall_nonresident": 0.5389093478945015
+        },
+        {
+          "m": 11,
+          "bytes_per_layer": 138412032.0,
+          "recall_nonresident": 0.6576432329768497
+        },
+        {
+          "m": 15,
+          "bytes_per_layer": 188743680.0,
+          "recall_nonresident": 0.7587491235141148
+        },
+        {
+          "m": 18,
+          "bytes_per_layer": 226492416.0,
+          "recall_nonresident": 0.8105597915205857
+        },
+        {
+          "m": 22,
+          "bytes_per_layer": 276824064.0,
+          "recall_nonresident": 0.8611160494917762
+        },
+        {
+          "m": 25,
+          "bytes_per_layer": 314572800.0,
+          "recall_nonresident": 0.889463949514413
+        },
+        {
+          "m": 29,
+          "bytes_per_layer": 364904448.0,
+          "recall_nonresident": 0.9185792922963102
+        },
+        {
+          "m": 32,
+          "bytes_per_layer": 402653184.0,
+          "recall_nonresident": 0.9357203195653734
+        }
+      ],
+      "precision_used": "fp16",
+      "calibration": {
+        "ece_before": 0.005578199624033678,
+        "bins_before": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 11396227,
+            "acc": 0.019712927796190792,
+            "conf": 0.022716353165691507
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 1368744,
+            "acc": 0.13851823277398842,
+            "conf": 0.14153133318534664
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.30000000000000004,
+            "count": 610104,
+            "acc": 0.25300768393585354,
+            "conf": 0.245071684922037
+          },
+          {
+            "lo": 0.30000000000000004,
+            "hi": 0.4,
+            "count": 373862,
+            "acc": 0.36149702296569325,
+            "conf": 0.34677398215612787
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 271168,
+            "acc": 0.4683590984186925,
+            "conf": 0.44767813240152654
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6000000000000001,
+            "count": 216892,
+            "acc": 0.5767524851077955,
+            "conf": 0.5486590877707643
+          },
+          {
+            "lo": 0.6000000000000001,
+            "hi": 0.7000000000000001,
+            "count": 192905,
+            "acc": 0.6819937274824396,
+            "conf": 0.6494123052189334
+          },
+          {
+            "lo": 0.7000000000000001,
+            "hi": 0.8,
+            "count": 190014,
+            "acc": 0.7822423610891829,
+            "conf": 0.750438045656489
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 219561,
+            "acc": 0.8832943919912917,
+            "conf": 0.8521808047972341
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 498443,
+            "acc": 0.9775420659935038,
+            "conf": 0.965506658025684
+          }
+        ],
+        "temperature": 0.9566303491592407,
+        "ece_after": 0.0036685768476005564,
+        "bins_after": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 11589218,
+            "acc": 0.0210559504532575,
+            "conf": 0.021054073150533238
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 1253824,
+            "acc": 0.14879680082691032,
+            "conf": 0.141590272857173
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.30000000000000004,
+            "count": 566833,
+            "acc": 0.26341444481884435,
+            "conf": 0.24517020211339444
+          },
+          {
+            "lo": 0.30000000000000004,
+            "hi": 0.4,
+            "count": 351987,
+            "acc": 0.3672891328372923,
+            "conf": 0.346848102686333
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 258243,
+            "acc": 0.47081237439156143,
+            "conf": 0.4477209577102298
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6000000000000001,
+            "count": 208403,
+            "acc": 0.5746510366933297,
+            "conf": 0.548741269630049
+          },
+          {
+            "lo": 0.6000000000000001,
+            "hi": 0.7000000000000001,
+            "count": 186761,
+            "acc": 0.6762118429436552,
+            "conf": 0.6494788860217824
+          },
+          {
+            "lo": 0.7000000000000001,
+            "hi": 0.8,
+            "count": 185242,
+            "acc": 0.7728646851146068,
+            "conf": 0.7504277417944613
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 216623,
+            "acc": 0.874205416783998,
+            "conf": 0.8522582522744391
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 520786,
+            "acc": 0.9752316690540836,
+            "conf": 0.9667668106315884
+          }
+        ],
+        "n_pairs": 15337920
+      },
+      "cross_domain_transfer": {
+        "chat_to_code": {
+          "recall_nonresident": 0.47963143150663234,
+          "n_test_reqs": 100,
+          "n_train_reqs": 150
+        },
+        "code_to_chat": {
+          "recall_nonresident": 0.4365701197860477,
+          "n_test_reqs": 150,
+          "n_train_reqs": 100
+        }
+      },
+      "figures": [
+        "experiments/e4_predictor/out/figures/recall_vs_bytes_olmoe.pdf",
+        "experiments/e4_predictor/out/figures/reliability_olmoe.pdf"
+      ]
+    },
+    "mixtral": {
+      "n_layers": 32,
+      "n_experts": 8,
+      "k": 2,
+      "n_train_reqs": 175,
+      "n_test_reqs": 75,
+      "ablation_table": [
+        {
+          "variant": "ids",
+          "d": 1,
+          "m": 2,
+          "recall_overall": 0.4431787096391604,
+          "recall_nonresident": 0.4029546005304571,
+          "n_layers_used": 31,
+          "feature_dim": 8,
+          "param_count": 8712
+        },
+        {
+          "variant": "ids_gate",
+          "d": 1,
+          "m": 2,
+          "recall_overall": 0.45064782028988837,
+          "recall_nonresident": 0.4069832361096421,
+          "n_layers_used": 31,
+          "feature_dim": 8,
+          "param_count": 8712
+        },
+        {
+          "variant": "ids_gate_entropy",
+          "d": 1,
+          "m": 2,
+          "recall_overall": 0.4524287761141495,
+          "recall_nonresident": 0.4106102131066551,
+          "n_layers_used": 31,
+          "feature_dim": 9,
+          "param_count": 9224
+        }
+      ],
+      "skipped_variants": [
+        "ids_gate_entropy_hidden"
+      ],
+      "baseline_frequency_table": {
+        "d": 1,
+        "m": 2,
+        "recall_overall": 0.41757292641075233,
+        "recall_nonresident": 0.333446244023655,
+        "baseline_static_popularity": 0.2856062040772602,
+        "baseline_random": 0.25
+      },
+      "winning_variant": "ids_gate_entropy",
+      "pp_gain_over_baseline": 7.7163969083000055,
+      "verdict": "NEGATIVE RESULT (reported honestly, per Experiments.md's own exit criteria): best variant (ids_gate_entropy) only reaches +7.7pp over the frequency table -- the router's selected set already carries nearly all the available signal.",
+      "recall_vs_bytes": [
+        {
+          "m": 2,
+          "bytes_per_layer": 704643072.0,
+          "recall_nonresident": 0.4106102131066551
+        },
+        {
+          "m": 3,
+          "bytes_per_layer": 1056964608.0,
+          "recall_nonresident": 0.5551390207295994
+        },
+        {
+          "m": 4,
+          "bytes_per_layer": 1409286144.0,
+          "recall_nonresident": 0.6786731342624143
+        },
+        {
+          "m": 5,
+          "bytes_per_layer": 1761607680.0,
+          "recall_nonresident": 0.7860645893777372
+        },
+        {
+          "m": 6,
+          "bytes_per_layer": 2113929216.0,
+          "recall_nonresident": 0.8714558650855599
+        },
+        {
+          "m": 7,
+          "bytes_per_layer": 2466250752.0,
+          "recall_nonresident": 0.9458992667053151
+        },
+        {
+          "m": 8,
+          "bytes_per_layer": 2818572288.0,
+          "recall_nonresident": 1.0
+        }
+      ],
+      "precision_used": "fp16",
+      "calibration": {
+        "ece_before": 0.006482145592141132,
+        "bins_before": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 535276,
+            "acc": 0.05714248350383727,
+            "conf": 0.05663441582839527
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 1152374,
+            "acc": 0.14733324424188673,
+            "conf": 0.15570524124067636
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.30000000000000004,
+            "count": 1273515,
+            "acc": 0.24467163716171383,
+            "conf": 0.24679294875909455
+          },
+          {
+            "lo": 0.30000000000000004,
+            "hi": 0.4,
+            "count": 686822,
+            "acc": 0.3463939710725632,
+            "conf": 0.34215988410089326
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 287576,
+            "acc": 0.46223954711102455,
+            "conf": 0.44350135504675464
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6000000000000001,
+            "count": 117173,
+            "acc": 0.5728538144453074,
+            "conf": 0.5442723273029433
+          },
+          {
+            "lo": 0.6000000000000001,
+            "hi": 0.7000000000000001,
+            "count": 64798,
+            "acc": 0.664542115497392,
+            "conf": 0.6442628705066282
+          },
+          {
+            "lo": 0.7000000000000001,
+            "hi": 0.8,
+            "count": 37059,
+            "acc": 0.7713645808035835,
+            "conf": 0.7437485720400462
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 22273,
+            "acc": 0.8635118753647915,
+            "conf": 0.8445985327372622
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 5158,
+            "acc": 0.9112058937572702,
+            "conf": 0.9272795917568118
+          }
+        ],
+        "temperature": 0.9836594462394714,
+        "ece_after": 0.005849834115643002,
+        "bins_after": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 561583,
+            "acc": 0.05882122500146906,
+            "conf": 0.05641699974883943
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 1179239,
+            "acc": 0.15078453137998318,
+            "conf": 0.15538183826572888
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.30000000000000004,
+            "count": 1249539,
+            "acc": 0.24800106279195766,
+            "conf": 0.24660997033598075
+          },
+          {
+            "lo": 0.30000000000000004,
+            "hi": 0.4,
+            "count": 663991,
+            "acc": 0.3490182848863915,
+            "conf": 0.3421193498681445
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 281211,
+            "acc": 0.4634491538382211,
+            "conf": 0.44355895922125416
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6000000000000001,
+            "count": 115780,
+            "acc": 0.5721713594748661,
+            "conf": 0.5443268176825229
+          },
+          {
+            "lo": 0.6000000000000001,
+            "hi": 0.7000000000000001,
+            "count": 64785,
+            "acc": 0.663270818862391,
+            "conf": 0.6443274124441318
+          },
+          {
+            "lo": 0.7000000000000001,
+            "hi": 0.8,
+            "count": 37606,
+            "acc": 0.7667393501037069,
+            "conf": 0.744120060265879
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 22702,
+            "acc": 0.8620385869086424,
+            "conf": 0.8454332853868537
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 5588,
+            "acc": 0.9096277738010021,
+            "conf": 0.9278042777658106
+          }
+        ],
+        "n_pairs": 4182024
+      },
+      "cross_domain_transfer": {
+        "chat_to_code": {
+          "recall_nonresident": 0.3461582408320763,
+          "n_test_reqs": 100,
+          "n_train_reqs": 150
+        },
+        "code_to_chat": {
+          "recall_nonresident": 0.329473830483256,
+          "n_test_reqs": 150,
+          "n_train_reqs": 100
+        }
+      },
+      "figures": [
+        "experiments/e4_predictor/out/figures/recall_vs_bytes_mixtral.pdf",
+        "experiments/e4_predictor/out/figures/reliability_mixtral.pdf"
+      ]
+    }
+  }
+}

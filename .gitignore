@@ -6,6 +6,9 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+.venv/
+.pytest_cache
+offload_cache/
 
 # Editors / IDEs
 .vscode/
@@ -17,3 +20,4 @@ Thumbs.db
 # Claude
 .claude/
 CLAUDE.local.md
+offload_cache/
