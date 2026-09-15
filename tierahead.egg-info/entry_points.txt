@@ -1,0 +1,2 @@
+[console_scripts]
+tierahead = tierahead.cli:main
