@@ -481,29 +481,3 @@ framework/
 │   └── run_end_to_end.sh   doctor -> tests -> roofline -> validate -> baseline
 └── demo/cxlmemsim/         how to run the real CXLMemSim backend (Linux-only)
 ```
-
-## What this framework does NOT claim
-
-- It does not claim to have run on real CXL hardware. Nobody in this
-  competition has any (see `PREDICTED.md`'s Methodology section for the
-  full evidence-ladder argument this inherits from the original research
-  program).
-- It does not claim `calib_compute.json`'s current numbers are trustworthy
-  GPU measurements — see above and `PREDICTED.md`.
-- `tierahead.policy.precision_gate.expected_delta_ppl` is an explicitly
-  `provenance="projected_from_literature"` prior, not a measured quality
-  curve — real substitution + perplexity evaluation needs a CUDA box.
-- The per-token DES bake-off's `batch` parameter changes per-layer compute
-  time (via the roofline model) but does not widen the candidate/miss set
-  the way real batched serving would (that effect is the separate,
-  already-real E_union(B)/roofline batching analysis) — see
-  `tierahead/sim/policies.py`'s module docstring.
-- It does not claim conditional prefetching alone hides CXL latency
-  consistently across concurrent load — measured on both models, it doesn't:
-  `prefetch-freq`/`prefetch-v2` degrade to `static-c`'s numbers (bit-identical
-  at high enough concurrency) once enough decode streams share the link. The
-  claim this framework actually backs is narrower and, we think, more useful:
-  the **hybrid** design (`hybrid-lru-prefetch`) stays near-oracle at every
-  concurrency level tested on both models, because its LRU-residency
-  component needs no bandwidth budget at all. See `PREDICTED.md` §2.5 for the
-  full numbers.
