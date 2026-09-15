@@ -473,6 +473,7 @@ framework/
 ├── PREDICTED.md          <- verified vs. simulated vs. projected, with numbers
 ├── pyproject.toml
 ├── Makefile
+├── extras/
 ├── configs/               tiers.yaml, models.yaml
 ├── tierahead/                the installable package (see table above)
 ├── tests/                  120 tests, run against real committed traces
